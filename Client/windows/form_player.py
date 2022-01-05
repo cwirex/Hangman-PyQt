@@ -1,6 +1,10 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_formPlayer(object):
+    def __init__(self, windows=None, nickname=None):
+        self.windows = windows
+        self.playerName = nickname
+
     def setupUi(self, formPlayer):
         formPlayer.setObjectName("QformPlayer")
         formPlayer.resize(401, 350)
@@ -75,6 +79,9 @@ class Ui_formPlayer(object):
             avatar = self.spinBox_avatar.text()
             self.windows.game.player_add(self.playerName, email, avatar, gender)
             self.windows.show_mainWindow()
+            self.lineEdit_email.setText("")
+            self.radioButton_male.setChecked(True)
+            self.spinBox_avatar.setValue(1)
         else:
             self.label_invalid.setText('Invalid values!')
             self.label_invalid.setStyleSheet("color: red;")
@@ -82,10 +89,6 @@ class Ui_formPlayer(object):
     def changeAvatar(self):
         self.img_avatar.setPixmap(
             QtGui.QPixmap(f'/home/mateusz/PycharmProjects/Hangman/Client/img/a{self.spinBox_avatar.text()}_small.jpg'))
-
-    def __init__(self, windows=None, nickname=None):
-        self.windows = windows
-        self.playerName = nickname
 
     def set_player_name(self, name):
         self.playerName = name

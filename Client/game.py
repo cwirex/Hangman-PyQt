@@ -22,7 +22,8 @@ class Game:
 
     def player_add(self, nickname, email, avatar, gender):
         if nickname not in [p.nickname for p in self.players]:
-            self.players = Player(nickname, email, avatar, gender)
+            self.players.append(Player(nickname, email, avatar, gender))
+        self.windows.mainWindow.update_players()
         # Todo update mainWindow player list
 
     def player_remove(self, name):
@@ -30,15 +31,19 @@ class Game:
             if self.players[i].nickname == name:
                 self.players.remove(i)
                 break
+        self.windows.mainWindow.update_players()
 
     def player_remove_all(self):
         self.players = []
+        self.windows.mainWindow.update_players()
 
     def set_category(self, name):
         self.category = name
+        self.windows.mainWindow.update_players()
 
     def set_game_id(self, id):
         self.game_id = id
+        self.windows.mainWindow.update_players()
 
     def set_online(self):
         self.online = True

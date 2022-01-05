@@ -48,6 +48,7 @@ class Ui_formNickname(object):
                 pass    # Todo sprawdź czy nick już wystąpił
             self.windows.formPlayer.set_player_name(self.lineEdit.text())
             self.windows.show_formPlayer()
+            self.lineEdit.setText("")
 
 
 
