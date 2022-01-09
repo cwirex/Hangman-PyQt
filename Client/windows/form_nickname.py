@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_formNickname(object):
     def __init__(self, windows=None):
         self.windows = windows
@@ -29,7 +30,7 @@ class Ui_formNickname(object):
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
 
-        self.pushButton.clicked.connect(self.clicked)
+        self.pushButton.clicked.connect(self.btn_clicked)
 
         self.retranslateUi(formNickname)
         QtCore.QMetaObject.connectSlotsByName(formNickname)
@@ -42,12 +43,15 @@ class Ui_formNickname(object):
         self.pushButton.setText(_translate("QformNickname", "Confirm"))
         self.label.setText(_translate("QformNickname", "Choose your nickname"))
 
-    def clicked(self):
-        if self.lineEdit.text():
-            if self.windows.game.online:
-                pass    # Todo sprawdź czy nick już wystąpił
-            self.windows.formPlayer.set_player_name(self.lineEdit.text())
-            self.windows.show_formPlayer()
+    def btn_clicked(self):
+        nick = self.lineEdit.text()
+        if nick:
+            if self.windows.game.playerExists(nick):
+                self.windows.game.playerLogin(nick)
+                self.windows.show_mainWindow()
+            else:
+                self.windows.formPlayer.set_player_name(nick)
+                self.windows.show_formPlayer()
             self.lineEdit.setText("")
 
 

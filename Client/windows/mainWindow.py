@@ -1,5 +1,6 @@
 # Created by: PyQt5 UI code generator 5.15.4
 from PyQt5 import QtCore, QtGui, QtWidgets
+from functools import partial
 
 
 class Ui_mainWindow(object):
@@ -194,15 +195,12 @@ class Ui_mainWindow(object):
         self.actionShow_top_scores.setObjectName("actionShow_top_scores")
         self.ShowTopScores = QtWidgets.QAction(mainWindow)
         self.ShowTopScores.setObjectName("ShowTopScores")
-        self.category_1 = QtWidgets.QAction(mainWindow)
-        self.category_1.setObjectName("category_1")
         self.Menage_players.addAction(self.action_AddPlayer)
         self.Menage_players.addAction(self.action_Remove_all)
         self.Menage_players.addAction(self.action_RemovePlayer)
         self.Menage_players.addSeparator()
         self.menuChoose_category.addAction(self.action_category_yours)
         self.menuChoose_category.addSeparator()
-        self.menuChoose_category.addAction(self.category_1)
         self.menuGra.addAction(self.Menage_players.menuAction())
         self.menuGra.addAction(self.menuChoose_category.menuAction())
         self.menuGra.addSeparator()
@@ -221,6 +219,7 @@ class Ui_mainWindow(object):
         '''EDIT'''
         self.e_players = []
         self.e_scores = []
+        self.e_categories = []
 
         self.img_hangman.setPixmap(QtGui.QPixmap('/home/mateusz/PycharmProjects/Hangman/Client/img/h7_small.jpeg'))
         self.line_letter.textChanged.connect(self.trim_letter)
@@ -238,10 +237,10 @@ class Ui_mainWindow(object):
     def add_player(self):
         self.windows.show_formNickname()
 
-    def remove_player(self):    # Todo (na później)
+    def remove_player(self):    # (na później)
         pass
 
-    def remove_all(self):       # Todo
+    def remove_all(self):
         self.windows.game.player_remove_all()
 
     def update_players(self):   # Todo: scores
@@ -268,12 +267,43 @@ class Ui_mainWindow(object):
             self.e_players[i].setText(f"{players[i].nickname}")
             self.e_scores[i].setText("0")
 
+    def update_game_id(self):
+        self.label_game.setText(f'Game {self.windows.game.game_id}')
 
+    def set_guessing_player(self, nick):
+        self.label_current_player.setText(f"Guessing: {nick}")
+
+    def set_used_letters(self, string):
+        final = ""
+        for char in string:
+            final += char + " "
+        final = final.upper()
+        self.used_letters.setText(final)
+
+    def create_lambda(self, text):
+        return lambda: self.windows.game.change_category(text)
+
+    def update_categories(self):
+        while len(self.e_categories) > 0:
+            self.menuChoose_category.removeAction(self.e_categories.pop())
+        for i in range(len(self.windows.game.categories)):
+            self.e_categories.append(QtWidgets.QAction(self.windows.QmainWindow))
+            self.e_categories[i].setObjectName(f"category_{i}")
+            self.menuChoose_category.addAction(self.e_categories[i])
+            self.e_categories[i].setText(f"Category: {self.windows.game.categories[i].capitalize()}")
+            self.e_categories[i].triggered.connect(self.create_lambda(self.e_categories[i].text()))
+        self.e_categories[0].triggered.connect(lambda:
+                                               self.windows.game.change_category(self.e_categories[0].text()))
+
+    def update_category(self):
+        category = self.windows.game.round.category
+        self.label_category.setText(category.capitalize())
 
     def trim_letter(self):
         text = self.line_letter.text()
         if len(text) > 1:
-            self.line_letter.setText(text[-1])
+            text = text[-1]
+        self.line_letter.setText(text.upper())
 
     def clicked_letter(self):
         self.line_letter.setText("")
@@ -313,12 +343,10 @@ class Ui_mainWindow(object):
         self.Pause_game.setText(_translate("mainWindow", "Pause game"))
         self.actionShow_top_scores.setText(_translate("mainWindow", "Show top scores"))
         self.ShowTopScores.setText(_translate("mainWindow", "Show"))
-        self.category_1.setText(_translate("mainWindow", "Pustynia"))
 
 
 if __name__ == "__main__":
     import sys
-
     app = QtWidgets.QApplication(sys.argv)
     mainWindow = QtWidgets.QMainWindow()
     ui = Ui_mainWindow()

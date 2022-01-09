@@ -3,7 +3,7 @@ from Server.dbase import Base
 
 
 class Player(Base):
-    __tablename__ = 'playerName'
+    __tablename__ = 'player'
     nickname = Column(VARCHAR, primary_key=True)
     email = Column(VARCHAR)
     avatar = Column(INTEGER)

@@ -5,7 +5,6 @@ game = Game()
 
 
 def main():
-    # Todo: Aktualizuj kategorie (mainWindow)
     # Todo: Wczytaj hasła
     game.run()
 
