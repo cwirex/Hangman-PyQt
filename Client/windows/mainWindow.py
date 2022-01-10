@@ -12,10 +12,15 @@ class Ui_mainWindow(object):
     def bind(self):
         self.img_hangman.setPixmap(QtGui.QPixmap('/home/mateusz/PycharmProjects/Hangman/Client/img/h7_small.jpeg'))
         self.line_letter.textChanged.connect(self.trim_letter)
-        self.btn_letter.clicked.connect(self.clicked_letter)
+        self.btn_letter.clicked.connect(self.btn_GuessLetter_clicked)
+        self.btn_word.clicked.connect(self.btn_GuessWord_clicked)
         self.action_AddPlayer.triggered.connect(self.add_player)
         self.action_RemovePlayer.triggered.connect(self.remove_player)
         self.action_Remove_all.triggered.connect(self.remove_all)
+        self.Start_Game.triggered.connect(self.start_game)
+
+    def start_game(self):
+        self.windows.game.start_game()
 
     def add_player(self):
         self.windows.show_formNickname()
@@ -25,6 +30,53 @@ class Ui_mainWindow(object):
 
     def remove_all(self):
         self.windows.game.player_remove_all()
+
+    def set_guessing_player(self, nick):
+        self.label_current_player.setText(f"Guessing: {nick}")
+
+    def set_used_letters(self, string):
+        final = ""
+        for char in string:
+            final += char + " "
+        final = final.upper()
+        self.used_letters.setText(final)
+
+    def update(self):
+        self.update_game_id()
+        self.update_players()
+        self.update_categories()
+        self.update_category()
+        self.update_current_player()
+        self.update_word()
+        self.set_used_letters(self.windows.game.round.used_letters)
+
+    def update_word(self):
+        word = self.windows.game.round.word
+        result = ""
+        for char in word:
+            if char in self.windows.game.round.used_letters:
+                result += char.upper()
+                # result += char.upper() + " "
+            else:
+                result += "_"
+                # result += "_ "
+        self.label_word.setText(result)
+
+    def update_current_player(self):
+        self.label_current_player.setText(f"Guessing: {self.windows.game.get_current_nickname()}")
+
+    def update_game_id(self):
+        self.label_game.setText(f'Game {self.windows.game.game_id}')
+
+    def update_categories(self):
+        while len(self.e_categories) > 0:
+            self.menuChoose_category.removeAction(self.e_categories.pop())
+        for i in range(len(self.windows.game.categories)):
+            self.e_categories.append(QtWidgets.QAction(self.windows.QmainWindow))
+            self.e_categories[i].setObjectName(f"category_{i}")
+            self.menuChoose_category.addAction(self.e_categories[i])
+            self.e_categories[i].setText(f"{self.windows.game.categories[i].capitalize()}")
+            self.e_categories[i].triggered.connect(self.create_lambda(self.e_categories[i].text().lower()))
 
     def update_players(self):   # Todo: scores
         for i in range(self.formLayout.rowCount()-1):
@@ -50,32 +102,9 @@ class Ui_mainWindow(object):
             self.e_players[i].setText(f"{players[i].nickname}")
             self.e_scores[i].setText("0")
 
-    def update_game_id(self):
-        self.label_game.setText(f'Game {self.windows.game.game_id}')
-
-    def set_guessing_player(self, nick):
-        self.label_current_player.setText(f"Guessing: {nick}")
-
-    def set_used_letters(self, string):
-        final = ""
-        for char in string:
-            final += char + " "
-        final = final.upper()
-        self.used_letters.setText(final)
-
-    def update_categories(self):
-        while len(self.e_categories) > 0:
-            self.menuChoose_category.removeAction(self.e_categories.pop())
-        for i in range(len(self.windows.game.categories)):
-            self.e_categories.append(QtWidgets.QAction(self.windows.QmainWindow))
-            self.e_categories[i].setObjectName(f"category_{i}")
-            self.menuChoose_category.addAction(self.e_categories[i])
-            self.e_categories[i].setText(f"Category: {self.windows.game.categories[i].capitalize()}")
-            self.e_categories[i].triggered.connect(self.create_lambda(self.e_categories[i].text()))
-
     def update_category(self):
         category = self.windows.game.round.category
-        self.label_category.setText(category.capitalize())
+        self.label_category.setText(f'Category: {category.capitalize()}')
 
     def trim_letter(self):
         text = self.line_letter.text()
@@ -83,11 +112,23 @@ class Ui_mainWindow(object):
             text = text[-1]
         self.line_letter.setText(text.upper())
 
-    def clicked_letter(self):
+    def btn_GuessLetter_clicked(self):
+        letter = self.line_letter.text().lower()
         self.line_letter.setText("")
+        if letter not in self.windows.game.round.used_letters:
+            self.windows.game.round.used_letters += letter
+            if letter in self.windows.game.round.word:
+                pass                                # Todo  Correct letter!
+            self.update()
+
+    def btn_GuessWord_clicked(self):
+        word = self.line_word.text().lower()
+        if word == self.windows.game.round.word:
+            self.label_word.setText(word.upper())   # Todo  Correct word!
+        self.line_word.setText("")
 
     def create_lambda(self, text):
-        return lambda: self.windows.game.change_category(text)
+        return lambda: self.windows.game.set_category(text)
 
     def setupUi(self, mainWindow):
         mainWindow.setObjectName("mainWindow")
@@ -308,7 +349,7 @@ class Ui_mainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         mainWindow.setWindowTitle(_translate("mainWindow", "MainWindow"))
         self.label_current_player.setText(_translate("mainWindow", "Guessing: player_1"))
-        self.label_word.setText(_translate("mainWindow", "P _ A S _ K"))
+        self.label_word.setText(_translate("mainWindow", "P_AS_K"))
         self.label_letters.setText(_translate("mainWindow", "Used:"))
         self.used_letters.setText(_translate("mainWindow", "P A S K R T Y"))
         self.btn_letter.setText(_translate("mainWindow", "Guess"))
