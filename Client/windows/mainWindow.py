@@ -1,9 +1,94 @@
 # Created by: PyQt5 UI code generator 5.15.4
 from PyQt5 import QtCore, QtGui, QtWidgets
-from functools import partial
 
 
 class Ui_mainWindow(object):
+    def __init__(self, windows=None):
+        self.windows = windows
+        self.e_players = []
+        self.e_scores = []
+        self.e_categories = []
+
+    def bind(self):
+        self.img_hangman.setPixmap(QtGui.QPixmap('/home/mateusz/PycharmProjects/Hangman/Client/img/h7_small.jpeg'))
+        self.line_letter.textChanged.connect(self.trim_letter)
+        self.btn_letter.clicked.connect(self.clicked_letter)
+        self.action_AddPlayer.triggered.connect(self.add_player)
+        self.action_RemovePlayer.triggered.connect(self.remove_player)
+        self.action_Remove_all.triggered.connect(self.remove_all)
+
+    def add_player(self):
+        self.windows.show_formNickname()
+
+    def remove_player(self):    # (na później)
+        pass
+
+    def remove_all(self):
+        self.windows.game.player_remove_all()
+
+    def update_players(self):   # Todo: scores
+        for i in range(self.formLayout.rowCount()-1):
+            self.formLayout.removeRow(1)
+        self.e_players = []
+        self.e_scores = []
+        players = self.windows.game.players
+        for i in range(len(players)):
+            self.e_players.append(QtWidgets.QLabel(self.formLayoutWidget))
+            font = QtGui.QFont()
+            font.setPointSize(10)
+            self.e_players[i].setFont(font)
+            self.e_players[i].setObjectName(f"player_{players[i].nickname}")
+            self.formLayout.setWidget(i+1, QtWidgets.QFormLayout.LabelRole, self.e_players[i])
+            self.e_scores.append(QtWidgets.QLabel(self.formLayoutWidget))
+            font = QtGui.QFont()
+            font.setBold(True)
+            font.setWeight(75)
+            self.e_scores[i].setFont(font)
+            self.e_scores[i].setAlignment(QtCore.Qt.AlignCenter)
+            self.e_scores[i].setObjectName(f"score_{players[i].nickname}")
+            self.formLayout.setWidget(i+1, QtWidgets.QFormLayout.FieldRole, self.e_scores[i])
+            self.e_players[i].setText(f"{players[i].nickname}")
+            self.e_scores[i].setText("0")
+
+    def update_game_id(self):
+        self.label_game.setText(f'Game {self.windows.game.game_id}')
+
+    def set_guessing_player(self, nick):
+        self.label_current_player.setText(f"Guessing: {nick}")
+
+    def set_used_letters(self, string):
+        final = ""
+        for char in string:
+            final += char + " "
+        final = final.upper()
+        self.used_letters.setText(final)
+
+    def update_categories(self):
+        while len(self.e_categories) > 0:
+            self.menuChoose_category.removeAction(self.e_categories.pop())
+        for i in range(len(self.windows.game.categories)):
+            self.e_categories.append(QtWidgets.QAction(self.windows.QmainWindow))
+            self.e_categories[i].setObjectName(f"category_{i}")
+            self.menuChoose_category.addAction(self.e_categories[i])
+            self.e_categories[i].setText(f"Category: {self.windows.game.categories[i].capitalize()}")
+            self.e_categories[i].triggered.connect(self.create_lambda(self.e_categories[i].text()))
+
+    def update_category(self):
+        category = self.windows.game.round.category
+        self.label_category.setText(category.capitalize())
+
+    def trim_letter(self):
+        text = self.line_letter.text()
+        if len(text) > 1:
+            text = text[-1]
+        self.line_letter.setText(text.upper())
+
+    def clicked_letter(self):
+        self.line_letter.setText("")
+
+    def create_lambda(self, text):
+        return lambda: self.windows.game.change_category(text)
+
     def setupUi(self, mainWindow):
         mainWindow.setObjectName("mainWindow")
         mainWindow.resize(1600, 900)
@@ -216,97 +301,8 @@ class Ui_mainWindow(object):
         self.menubar.addAction(self.menuOpcje.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
 
-        '''EDIT'''
-        self.e_players = []
-        self.e_scores = []
-        self.e_categories = []
-
-        self.img_hangman.setPixmap(QtGui.QPixmap('/home/mateusz/PycharmProjects/Hangman/Client/img/h7_small.jpeg'))
-        self.line_letter.textChanged.connect(self.trim_letter)
-        self.btn_letter.clicked.connect(self.clicked_letter)
-        self.action_AddPlayer.triggered.connect(self.add_player)
-        self.action_RemovePlayer.triggered.connect(self.remove_player)
-        self.action_Remove_all.triggered.connect(self.remove_all)
-
         self.retranslateUi(mainWindow)
         QtCore.QMetaObject.connectSlotsByName(mainWindow)
-
-    def __init__(self, windows=None):
-        self.windows = windows
-
-    def add_player(self):
-        self.windows.show_formNickname()
-
-    def remove_player(self):    # (na później)
-        pass
-
-    def remove_all(self):
-        self.windows.game.player_remove_all()
-
-    def update_players(self):   # Todo: scores
-        for i in range(self.formLayout.rowCount()-1):
-            self.formLayout.removeRow(1)
-        self.e_players = []
-        self.e_scores = []
-        players = self.windows.game.players
-        for i in range(len(players)):
-            self.e_players.append(QtWidgets.QLabel(self.formLayoutWidget))
-            font = QtGui.QFont()
-            font.setPointSize(10)
-            self.e_players[i].setFont(font)
-            self.e_players[i].setObjectName(f"player_{players[i].nickname}")
-            self.formLayout.setWidget(i+1, QtWidgets.QFormLayout.LabelRole, self.e_players[i])
-            self.e_scores.append(QtWidgets.QLabel(self.formLayoutWidget))
-            font = QtGui.QFont()
-            font.setBold(True)
-            font.setWeight(75)
-            self.e_scores[i].setFont(font)
-            self.e_scores[i].setAlignment(QtCore.Qt.AlignCenter)
-            self.e_scores[i].setObjectName(f"score_{players[i].nickname}")
-            self.formLayout.setWidget(i+1, QtWidgets.QFormLayout.FieldRole, self.e_scores[i])
-            self.e_players[i].setText(f"{players[i].nickname}")
-            self.e_scores[i].setText("0")
-
-    def update_game_id(self):
-        self.label_game.setText(f'Game {self.windows.game.game_id}')
-
-    def set_guessing_player(self, nick):
-        self.label_current_player.setText(f"Guessing: {nick}")
-
-    def set_used_letters(self, string):
-        final = ""
-        for char in string:
-            final += char + " "
-        final = final.upper()
-        self.used_letters.setText(final)
-
-    def create_lambda(self, text):
-        return lambda: self.windows.game.change_category(text)
-
-    def update_categories(self):
-        while len(self.e_categories) > 0:
-            self.menuChoose_category.removeAction(self.e_categories.pop())
-        for i in range(len(self.windows.game.categories)):
-            self.e_categories.append(QtWidgets.QAction(self.windows.QmainWindow))
-            self.e_categories[i].setObjectName(f"category_{i}")
-            self.menuChoose_category.addAction(self.e_categories[i])
-            self.e_categories[i].setText(f"Category: {self.windows.game.categories[i].capitalize()}")
-            self.e_categories[i].triggered.connect(self.create_lambda(self.e_categories[i].text()))
-        self.e_categories[0].triggered.connect(lambda:
-                                               self.windows.game.change_category(self.e_categories[0].text()))
-
-    def update_category(self):
-        category = self.windows.game.round.category
-        self.label_category.setText(category.capitalize())
-
-    def trim_letter(self):
-        text = self.line_letter.text()
-        if len(text) > 1:
-            text = text[-1]
-        self.line_letter.setText(text.upper())
-
-    def clicked_letter(self):
-        self.line_letter.setText("")
 
     def retranslateUi(self, mainWindow):
         _translate = QtCore.QCoreApplication.translate

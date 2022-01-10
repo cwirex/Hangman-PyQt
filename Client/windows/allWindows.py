@@ -16,6 +16,9 @@ class Windows:
         self.formNickname.setupUi(self.QformNickname)
         self.formPlayer = Ui_formPlayer(self)
         self.formPlayer.setupUi(self.QformPlayer)
+        self.mainWindow.bind()
+        self.formNickname.bind()
+        self.formPlayer.bind()
 
     def show_mainWindow(self):
         self.QmainWindow.show()

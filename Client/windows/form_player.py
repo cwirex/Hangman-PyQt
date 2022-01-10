@@ -5,6 +5,33 @@ class Ui_formPlayer(object):
         self.windows = windows
         self.playerName = nickname
 
+    def bind(self):
+        self.pushButton_confirm.clicked.connect(self.clicked)
+        self.spinBox_avatar.valueChanged.connect(self.changeAvatar)
+        self.img_avatar.setPixmap(QtGui.QPixmap(f'/home/mateusz/PycharmProjects/Hangman/Client/img/a{self.spinBox_avatar.text()}_small.jpg'))
+
+    def clicked(self):
+        if self.lineEdit_email.text():
+            email = self.lineEdit_email.text()
+            gender = self.radioButton_male.isChecked()
+            avatar = self.spinBox_avatar.text()
+            self.windows.game.player_add(self.playerName, email, avatar, gender)
+            self.windows.show_mainWindow()
+            self.lineEdit_email.setText("")
+            self.radioButton_male.setChecked(True)
+            self.spinBox_avatar.setValue(1)
+        else:
+            self.label_invalid.setText('Invalid values!')
+            self.label_invalid.setStyleSheet("color: red;")
+
+    def changeAvatar(self):
+        self.img_avatar.setPixmap(
+            QtGui.QPixmap(f'/home/mateusz/PycharmProjects/Hangman/Client/img/a{self.spinBox_avatar.text()}_small.jpg'))
+
+    def set_player_name(self, name):
+        self.playerName = name
+        self.label_header.setText(f"Create {self.playerName}")
+
     def setupUi(self, formPlayer):
         formPlayer.setObjectName("QformPlayer")
         formPlayer.resize(401, 350)
@@ -64,35 +91,8 @@ class Ui_formPlayer(object):
         self.label_invalid.setAlignment(QtCore.Qt.AlignCenter)
         self.label_invalid.setObjectName("label_invalid")
 
-        '''EDIT'''
-        self.pushButton_confirm.clicked.connect(self.clicked)
-        self.spinBox_avatar.valueChanged.connect(self.changeAvatar)
-        self.img_avatar.setPixmap(QtGui.QPixmap(f'/home/mateusz/PycharmProjects/Hangman/Client/img/a{self.spinBox_avatar.text()}_small.jpg'))
-
         self.retranslateUi(formPlayer)
         QtCore.QMetaObject.connectSlotsByName(formPlayer)
-
-    def clicked(self):
-        if self.lineEdit_email.text():
-            email = self.lineEdit_email.text()
-            gender = self.radioButton_male.isChecked()
-            avatar = self.spinBox_avatar.text()
-            self.windows.game.player_add(self.playerName, email, avatar, gender)
-            self.windows.show_mainWindow()
-            self.lineEdit_email.setText("")
-            self.radioButton_male.setChecked(True)
-            self.spinBox_avatar.setValue(1)
-        else:
-            self.label_invalid.setText('Invalid values!')
-            self.label_invalid.setStyleSheet("color: red;")
-
-    def changeAvatar(self):
-        self.img_avatar.setPixmap(
-            QtGui.QPixmap(f'/home/mateusz/PycharmProjects/Hangman/Client/img/a{self.spinBox_avatar.text()}_small.jpg'))
-
-    def set_player_name(self, name):
-        self.playerName = name
-        self.label_header.setText(f"Create {self.playerName}")
 
     def retranslateUi(self, formPlayer):
         _translate = QtCore.QCoreApplication.translate
