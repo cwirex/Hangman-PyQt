@@ -14,6 +14,7 @@ class Game:
         self.app = QtWidgets.QApplication(sys.argv)
         self.game_id = 1
         self.players = []
+        self.scores = {}        # {nickname: score}
         self.words = []
         self.categories = []
         self.online = False
@@ -38,6 +39,7 @@ class Game:
         if nickname not in [p.nickname for p in self.players]:
             player = Player(nickname, email, avatar, gender)
             self.players.append(player)
+            self.scores[nickname] = 0
             if self.online:
                 try:
                     if nickname not in [p.nickname for p in self.session.query(Player).all()]:
@@ -56,6 +58,7 @@ class Game:
 
     def player_remove_all(self):
         self.players = []
+        self.scores = {}
         self.windows.mainWindow.update_players()
 
     def playerExists(self, nick):

@@ -100,7 +100,8 @@ class Ui_mainWindow(object):
             self.e_scores[i].setObjectName(f"score_{players[i].nickname}")
             self.formLayout.setWidget(i+1, QtWidgets.QFormLayout.FieldRole, self.e_scores[i])
             self.e_players[i].setText(f"{players[i].nickname}")
-            self.e_scores[i].setText("0")
+            player_score = self.windows.game.scores[players[i].nickname]
+            self.e_scores[i].setText(f'{player_score}')
 
     def update_category(self):
         category = self.windows.game.round.category
@@ -116,16 +117,14 @@ class Ui_mainWindow(object):
         letter = self.line_letter.text().lower()
         self.line_letter.setText("")
         if letter not in self.windows.game.round.used_letters:
-            self.windows.game.round.used_letters += letter
-            if letter in self.windows.game.round.word:
-                pass                                # Todo  Correct letter!
+            self.windows.game.round.guess_letter(letter)
             self.update()
 
     def btn_GuessWord_clicked(self):
         word = self.line_word.text().lower()
-        if word == self.windows.game.round.word:
-            self.label_word.setText(word.upper())   # Todo  Correct word!
         self.line_word.setText("")
+        self.windows.game.round.guess_word(word)
+        self.update()
 
     def create_lambda(self, text):
         return lambda: self.windows.game.set_category(text)
