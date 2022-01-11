@@ -30,6 +30,7 @@ class Game:
         cat = self.round.category
         word = self.get_random_word()
         self.round = Round(self, cat, word)
+        self.windows.mainWindow.timer_start()
         self.windows.mainWindow.update()
 
     def get_current_nickname(self):
@@ -104,22 +105,24 @@ class Game:
 
     def set_online(self):
         self.online = True
-        Base.metadata.create_all(engine)
-        self.session = Session()
-        # self.update_words()       #Todo
-        self.update_categories()
-        self.set_game_id(self.get_game_id())
+        try:
+            Base.metadata.create_all(engine)
+            self.session = Session()
+            self.update_categories()
+            self.set_category(self.categories[0])
+            self.set_game_id(self.get_game_id())
+        except:
+            print('game.set_online failed')
+            self.online = False
 
     def update_categories(self):  # Todo if !online
-        try:
-            words = self.session.query(Word).all()
-            temp = []
-            [temp.append(w.category) for w in words if w.category not in temp]  # uniq(categories)
-            self.categories = temp
-            self.categories.sort()
-            self.windows.mainWindow.update_categories()
-        except:
-            print("Fetching categories from db failed")
+        words = self.session.query(Word).all()
+        temp = []
+        [temp.append(w.category) for w in words if w.category not in temp]  # uniq(categories)
+        self.categories = temp
+        self.categories.sort()
+        self.windows.mainWindow.update_categories()
+
 
     def get_game_id(self):  # wyszukaj dostępne (kolejne) id w bazie
         scores = self.session.query(Score).all()

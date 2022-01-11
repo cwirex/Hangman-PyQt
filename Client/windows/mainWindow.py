@@ -1,5 +1,6 @@
 # Created by: PyQt5 UI code generator 5.15.4
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import QTimer
 
 
 class Ui_mainWindow(object):
@@ -10,7 +11,6 @@ class Ui_mainWindow(object):
         self.e_categories = []
 
     def bind(self):
-        self.img_hangman.setPixmap(QtGui.QPixmap('/home/mateusz/PycharmProjects/Hangman/Client/img/h7_small.jpeg'))
         self.line_letter.textChanged.connect(self.trim_letter)
         self.btn_letter.clicked.connect(self.btn_GuessLetter_clicked)
         self.btn_word.clicked.connect(self.btn_GuessWord_clicked)
@@ -18,6 +18,9 @@ class Ui_mainWindow(object):
         self.action_RemovePlayer.triggered.connect(self.remove_player)
         self.action_Remove_all.triggered.connect(self.remove_all)
         self.Start_Game.triggered.connect(self.start_game)
+        self.timer = QTimer()
+        self.timer_s = 100
+        self.timer.timeout.connect(self.timer_timeout)
 
     def start_game(self):
         self.windows.game.start_game()
@@ -34,6 +37,25 @@ class Ui_mainWindow(object):
     def set_guessing_player(self, nick):
         self.label_current_player.setText(f"Guessing: {nick}")
 
+    def timer_timeout(self):
+        if self.timer_s > 0:
+            self.timer_s -= 1
+        else:
+            self.timer_s = 100
+            self.windows.game.round.timeout()
+        time = ((self.windows.game.round.timeleft-1 + self.timer_s/100) / self.windows.game.round.maxtime) * 100
+        self.bar_timer.setValue(time)
+
+    def timer_start(self):
+        self.timer.start(10)  # przerwania co 10 ms
+
+    def timer_stop(self):
+        self.timer.stop()
+
+    def update_time(self):
+        time = ((self.windows.game.round.timeleft-1 + self.timer_s/100) / self.windows.game.round.maxtime) * 100
+        self.bar_timer.setValue(time)
+
     def set_used_letters(self, string):
         final = ""
         for char in string:
@@ -49,6 +71,8 @@ class Ui_mainWindow(object):
         self.update_current_player()
         self.update_word()
         self.set_used_letters(self.windows.game.round.used_letters)
+        self.update_img()
+        self.update_time()
 
     def update_word(self):
         word = self.windows.game.round.word
@@ -61,6 +85,14 @@ class Ui_mainWindow(object):
                 result += "_"
                 # result += "_ "
         self.label_word.setText(result)
+
+    def update_img(self):
+        lifes = self.windows.game.round.lifes
+        img = f'/home/mateusz/PycharmProjects/Hangman/Client/img/h{lifes}_small.jpeg'
+        try:
+            self.img_hangman.setPixmap(QtGui.QPixmap(img))
+        except:
+            print('Img not found')
 
     def update_current_player(self):
         self.label_current_player.setText(f"Guessing: {self.windows.game.get_current_nickname()}")
@@ -141,14 +173,15 @@ class Ui_mainWindow(object):
         self.bar_timer.setFormat("")
         self.bar_timer.setObjectName("bar_timer")
         self.label_current_player = QtWidgets.QLabel(self.centralwidget)
-        self.label_current_player.setGeometry(QtCore.QRect(60, 770, 231, 71))
+        self.label_current_player.setGeometry(QtCore.QRect(0, 770, 731, 51))
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setPointSize(16)
         font.setBold(False)
         font.setWeight(50)
         self.label_current_player.setFont(font)
         self.label_current_player.setLayoutDirection(QtCore.Qt.RightToLeft)
         self.label_current_player.setAutoFillBackground(False)
+        self.label_current_player.setText("")
         self.label_current_player.setTextFormat(QtCore.Qt.AutoText)
         self.label_current_player.setAlignment(QtCore.Qt.AlignCenter)
         self.label_current_player.setObjectName("label_current_player")
@@ -173,7 +206,7 @@ class Ui_mainWindow(object):
         self.label_word.setWordWrap(False)
         self.label_word.setObjectName("label_word")
         self.label_letters = QtWidgets.QLabel(self.centralwidget)
-        self.label_letters.setGeometry(QtCore.QRect(40, 70, 91, 71))
+        self.label_letters.setGeometry(QtCore.QRect(40, 70, 141, 71))
         font = QtGui.QFont()
         font.setFamily("Ubuntu")
         font.setPointSize(13)
@@ -191,12 +224,13 @@ class Ui_mainWindow(object):
         font.setStrikeOut(False)
         font.setKerning(True)
         self.used_letters.setFont(font)
+        self.used_letters.setText("")
         self.used_letters.setTextFormat(QtCore.Qt.AutoText)
-        self.used_letters.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
+        self.used_letters.setAlignment(QtCore.Qt.AlignLeading | QtCore.Qt.AlignLeft | QtCore.Qt.AlignTop)
         self.used_letters.setWordWrap(True)
         self.used_letters.setObjectName("used_letters")
         self.line_word = QtWidgets.QLineEdit(self.centralwidget)
-        self.line_word.setGeometry(QtCore.QRect(1070, 770, 341, 51))
+        self.line_word.setGeometry(QtCore.QRect(990, 770, 341, 51))
         font = QtGui.QFont()
         font.setFamily("Ubuntu")
         font.setPointSize(20)
@@ -221,13 +255,13 @@ class Ui_mainWindow(object):
         self.btn_letter.setGeometry(QtCore.QRect(780, 770, 91, 51))
         self.btn_letter.setObjectName("btn_letter")
         self.btn_word = QtWidgets.QPushButton(self.centralwidget)
-        self.btn_word.setGeometry(QtCore.QRect(1410, 770, 151, 51))
+        self.btn_word.setGeometry(QtCore.QRect(1330, 770, 151, 51))
         self.btn_word.setObjectName("btn_word")
         self.label_category = QtWidgets.QLabel(self.centralwidget)
         self.label_category.setGeometry(QtCore.QRect(0, 50, 1601, 41))
         font = QtGui.QFont()
         font.setFamily("Ubuntu")
-        font.setPointSize(11)
+        font.setPointSize(12)
         self.label_category.setFont(font)
         self.label_category.setAlignment(QtCore.Qt.AlignCenter)
         self.label_category.setObjectName("label_category")
@@ -239,7 +273,8 @@ class Ui_mainWindow(object):
         font.setBold(False)
         font.setWeight(50)
         self.label_round.setFont(font)
-        self.label_round.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.label_round.setText("")
+        self.label_round.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
         self.label_round.setObjectName("label_round")
         self.label_game = QtWidgets.QLabel(self.centralwidget)
         self.label_game.setGeometry(QtCore.QRect(1320, 10, 251, 51))
@@ -249,7 +284,8 @@ class Ui_mainWindow(object):
         font.setBold(False)
         font.setWeight(50)
         self.label_game.setFont(font)
-        self.label_game.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.label_game.setText("")
+        self.label_game.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
         self.label_game.setObjectName("label_game")
         self.formLayoutWidget = QtWidgets.QWidget(self.centralwidget)
         self.formLayoutWidget.setGeometry(QtCore.QRect(1350, 120, 251, 381))
@@ -320,6 +356,8 @@ class Ui_mainWindow(object):
         self.actionShow_top_scores.setObjectName("actionShow_top_scores")
         self.ShowTopScores = QtWidgets.QAction(mainWindow)
         self.ShowTopScores.setObjectName("ShowTopScores")
+        self.category_1 = QtWidgets.QAction(mainWindow)
+        self.category_1.setObjectName("category_1")
         self.Menage_players.addAction(self.action_AddPlayer)
         self.Menage_players.addAction(self.action_Remove_all)
         self.Menage_players.addAction(self.action_RemovePlayer)
@@ -347,15 +385,11 @@ class Ui_mainWindow(object):
     def retranslateUi(self, mainWindow):
         _translate = QtCore.QCoreApplication.translate
         mainWindow.setWindowTitle(_translate("mainWindow", "MainWindow"))
-        self.label_current_player.setText(_translate("mainWindow", "Guessing: player_1"))
-        self.label_word.setText(_translate("mainWindow", "P_AS_K"))
-        self.label_letters.setText(_translate("mainWindow", "Used:"))
-        self.used_letters.setText(_translate("mainWindow", "P A S K R T Y"))
+        self.label_word.setText(_translate("mainWindow", "Add Players & Start "))
+        self.label_letters.setText(_translate("mainWindow", "Letters used:"))
         self.btn_letter.setText(_translate("mainWindow", "Guess"))
         self.btn_word.setText(_translate("mainWindow", "Guess word"))
-        self.label_category.setText(_translate("mainWindow", "Category: Pustynia"))
-        self.label_round.setText(_translate("mainWindow", "Round 1"))
-        self.label_game.setText(_translate("mainWindow", "Game 1"))
+        self.label_category.setText(_translate("mainWindow", "Choose category"))
         self.t_players.setText(_translate("mainWindow", "Player"))
         self.t_score.setText(_translate("mainWindow", "Score"))
         self.menuGra.setTitle(_translate("mainWindow", "Start"))
@@ -379,6 +413,7 @@ class Ui_mainWindow(object):
         self.Pause_game.setText(_translate("mainWindow", "Pause game"))
         self.actionShow_top_scores.setText(_translate("mainWindow", "Show top scores"))
         self.ShowTopScores.setText(_translate("mainWindow", "Show"))
+        self.category_1.setText(_translate("mainWindow", "Pustynia"))
 
 
 if __name__ == "__main__":
