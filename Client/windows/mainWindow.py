@@ -9,6 +9,12 @@ class Ui_mainWindow(object):
         self.e_players = []
         self.e_scores = []
         self.e_categories = []
+        self.timer_s_start = 100
+        self.timer_answer_s_start = 400
+        self.timer = QTimer()
+        self.timer_answer = QTimer()
+        self.timer_s = self.timer_s_start
+        self.timer_answer_s = self.timer_answer_s_start
 
     def bind(self):
         self.line_letter.textChanged.connect(self.trim_letter)
@@ -18,9 +24,8 @@ class Ui_mainWindow(object):
         self.action_RemovePlayer.triggered.connect(self.remove_player)
         self.action_Remove_all.triggered.connect(self.remove_all)
         self.Start_Game.triggered.connect(self.start_game)
-        self.timer = QTimer()
-        self.timer_s = 100
         self.timer.timeout.connect(self.timer_timeout)
+        self.timer_answer.timeout.connect(self.show_answer_update)
 
     def start_game(self):
         self.windows.game.start_game()
@@ -28,14 +33,14 @@ class Ui_mainWindow(object):
     def add_player(self):
         self.windows.show_formNickname()
 
-    def remove_player(self):    # (na później)
+    def remove_player(self):  # (na później)
         pass
 
     def remove_all(self):
         self.windows.game.player_remove_all()
 
     def set_guessing_player(self, nick):
-        self.label_current_player.setText(f"Guessing: {nick}")
+        self.label_current_player.setText(f"Now: {nick}")
 
     def timer_timeout(self):
         if self.timer_s > 0:
@@ -43,8 +48,19 @@ class Ui_mainWindow(object):
         else:
             self.timer_s = 100
             self.windows.game.round.timeout()
-        time = ((self.windows.game.round.timeleft-1 + self.timer_s/100) / self.windows.game.round.maxtime) * 100
+        time = ((self.windows.game.round.timeleft - 1 + self.timer_s / self.timer_s_start)
+                / self.windows.game.round.time) * 100
         self.bar_timer.setValue(time)
+
+    def timer_restart(self):
+        self.timer_s = self.timer_s_start
+        self.timer_start()
+
+    def timer_reset(self):
+        self.timer.stop()
+        self.bar_timer.setValue(100)
+        self.timer_s = self.timer_s_start
+        self.windows.game.round.timeleft = self.windows.game.round.time
 
     def timer_start(self):
         self.timer.start(10)  # przerwania co 10 ms
@@ -52,9 +68,18 @@ class Ui_mainWindow(object):
     def timer_stop(self):
         self.timer.stop()
 
-    def update_time(self):
-        time = ((self.windows.game.round.timeleft-1 + self.timer_s/100) / self.windows.game.round.maxtime) * 100
-        self.bar_timer.setValue(time)
+    def show_answer(self):
+        self.timer_reset()
+        self.timer_answer_s = self.timer_answer_s_start
+        self.label_word.setText(self.windows.game.round.word.upper())
+        self.timer_answer.start(10)
+
+    def show_answer_update(self):
+        self.timer_answer_s -= 1
+        self.bar_timer.setValue(int(self.timer_answer_s / self.timer_answer_s_start * 100))
+        if self.timer_answer_s == 0:
+            self.timer_answer.stop()
+            self.windows.game.round.next()
 
     def set_used_letters(self, string):
         final = ""
@@ -73,6 +98,7 @@ class Ui_mainWindow(object):
         self.set_used_letters(self.windows.game.round.used_letters)
         self.update_img()
         self.update_time()
+        self.update_round()
 
     def update_word(self):
         word = self.windows.game.round.word
@@ -80,10 +106,8 @@ class Ui_mainWindow(object):
         for char in word:
             if char in self.windows.game.round.used_letters:
                 result += char.upper()
-                # result += char.upper() + " "
             else:
                 result += "_"
-                # result += "_ "
         self.label_word.setText(result)
 
     def update_img(self):
@@ -94,8 +118,15 @@ class Ui_mainWindow(object):
         except:
             print('Img not found')
 
+    def update_time(self):
+        time = ((self.windows.game.round.timeleft - 1 + self.timer_s / 100) / self.windows.game.round.time) * 100
+        self.bar_timer.setValue(time)
+
+    def update_round(self):
+        self.label_round.setText(f"Round {self.windows.game.round.id}/{self.windows.game.rounds_in_game}")
+
     def update_current_player(self):
-        self.label_current_player.setText(f"Guessing: {self.windows.game.get_current_nickname()}")
+        self.label_current_player.setText(f"Now: {self.windows.game.get_current_nickname()}")
 
     def update_game_id(self):
         self.label_game.setText(f'Game {self.windows.game.game_id}')
@@ -110,8 +141,8 @@ class Ui_mainWindow(object):
             self.e_categories[i].setText(f"{self.windows.game.categories[i].capitalize()}")
             self.e_categories[i].triggered.connect(self.create_lambda(self.e_categories[i].text().lower()))
 
-    def update_players(self):   # Todo: scores
-        for i in range(self.formLayout.rowCount()-1):
+    def update_players(self):  # Todo: scores
+        for i in range(self.formLayout.rowCount() - 1):
             self.formLayout.removeRow(1)
         self.e_players = []
         self.e_scores = []
@@ -122,7 +153,7 @@ class Ui_mainWindow(object):
             font.setPointSize(10)
             self.e_players[i].setFont(font)
             self.e_players[i].setObjectName(f"player_{players[i].nickname}")
-            self.formLayout.setWidget(i+1, QtWidgets.QFormLayout.LabelRole, self.e_players[i])
+            self.formLayout.setWidget(i + 1, QtWidgets.QFormLayout.LabelRole, self.e_players[i])
             self.e_scores.append(QtWidgets.QLabel(self.formLayoutWidget))
             font = QtGui.QFont()
             font.setBold(True)
@@ -130,7 +161,7 @@ class Ui_mainWindow(object):
             self.e_scores[i].setFont(font)
             self.e_scores[i].setAlignment(QtCore.Qt.AlignCenter)
             self.e_scores[i].setObjectName(f"score_{players[i].nickname}")
-            self.formLayout.setWidget(i+1, QtWidgets.QFormLayout.FieldRole, self.e_scores[i])
+            self.formLayout.setWidget(i + 1, QtWidgets.QFormLayout.FieldRole, self.e_scores[i])
             self.e_players[i].setText(f"{players[i].nickname}")
             player_score = self.windows.game.scores[players[i].nickname]
             self.e_scores[i].setText(f'{player_score}')
@@ -149,14 +180,16 @@ class Ui_mainWindow(object):
         letter = self.line_letter.text().lower()
         self.line_letter.setText("")
         if letter not in self.windows.game.round.used_letters:
+            self.timer_reset()
             self.windows.game.round.guess_letter(letter)
-            self.update()
+            # self.timer_start()
 
     def btn_GuessWord_clicked(self):
+        self.timer_reset()
         word = self.line_word.text().lower()
         self.line_word.setText("")
         self.windows.game.round.guess_word(word)
-        self.update()
+        # self.timer_start()
 
     def create_lambda(self, text):
         return lambda: self.windows.game.set_category(text)
@@ -418,6 +451,7 @@ class Ui_mainWindow(object):
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     mainWindow = QtWidgets.QMainWindow()
     ui = Ui_mainWindow()

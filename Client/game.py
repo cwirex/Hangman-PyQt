@@ -14,12 +14,13 @@ class Game:
         self.app = QtWidgets.QApplication(sys.argv)
         self.game_id = 1
         self.players = []
-        self.scores = {}        # {nickname: score}
+        self.scores = {}  # {nickname: score}
         self.words = []
         self.categories = []
         self.online = False
         self.session = None
         self.round = Round(self)
+        self.rounds_in_game = 5
         self.windows = Windows(self)
 
     def run(self):
@@ -32,6 +33,14 @@ class Game:
         self.round = Round(self, cat, word)
         self.windows.mainWindow.timer_start()
         self.windows.mainWindow.update()
+
+    def game_over(self):
+        self.windows.mainWindow.timer_stop()
+        pass
+        # todo
+        #   hide items
+        #   show scores
+        #   save scores to db
 
     def get_current_nickname(self):
         return self.round.current_player.nickname
@@ -123,7 +132,6 @@ class Game:
         self.categories.sort()
         self.windows.mainWindow.update_categories()
 
-
     def get_game_id(self):  # wyszukaj dostępne (kolejne) id w bazie
         scores = self.session.query(Score).all()
         return 1 + max([s.game_id for s in scores])
@@ -133,5 +141,3 @@ class Game:
         if self.round.word in words:
             words.remove(self.round.word)
         return random.choice(words)
-
-

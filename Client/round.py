@@ -11,75 +11,85 @@ class Round:
             self.players_order = self.game.players.copy()
             self.current_player = self.players_order[0]
         self.used_letters = ""
-        self.lifes = 10     # const
-        self.maxtime = 10   # in seconds
-        self.timeleft = self.maxtime
+        self.lifes = 10  # current lifes; max=10
+        self.time = 2  # in seconds
+        self.timeleft = self.time
 
     def next(self):
-        self.id += 1
+        self.game.windows.mainWindow.timer_reset()
+        if self.id < self.game.rounds_in_game:
+            self.id += 1
+            self.lifes = 10
+            self.used_letters = ""
+            self.word = self.game.get_random_word()
+            self.timeleft = self.time
+            self.game.windows.mainWindow.update()
+            self.game.windows.mainWindow.timer_restart()
+        else:
+            self.game.game_over()
 
     def next_player(self):
-        self.timeleft = self.maxtime
         i = self.players_order.index(self.current_player)
         i += 1
         i %= len(self.players_order)
         self.current_player = self.players_order[i]
-        # timer = start
-        self.game.windows.mainWindow.update()
-
-
-    def randomize_order(self):
-        random.shuffle(self.players_order)
+        self.game.windows.mainWindow.update_current_player()
 
     def guess_letter(self, letter):
         self.used_letters += letter
+        self.game.windows.mainWindow.set_used_letters(self.used_letters)
         if letter in self.word:
+            self.game.windows.mainWindow.update_word()
             self.game.scores[self.current_player.nickname] += 1
-            # if word guessed:
+            self.game.windows.mainWindow.update_players()
+            self.next_player()
             word_guessed = True
             for c in self.word:
                 if c not in self.used_letters:
                     word_guessed = False
                     break
             if word_guessed:
-                self.game.windows.mainWindow.timer_stop()
-                # todo
-                #   next_round()
+                self.game.windows.mainWindow.show_answer()
+            else:
+                self.game.windows.mainWindow.timer_start()
         else:
             self.wrong_guess()
-        self.next_player()
-
-    def timeout(self):
-        self.timeleft -= 1
-        if self.timeleft == 0:
             self.next_player()
-            self.wrong_guess()
-
 
     def guess_word(self, word):
+        # oblicz możliwe punkty za trafienie/pudło:
         points = len(self.word)
         for char in self.used_letters:
             for i in range(len(self.word)):
                 if self.word[i] == char:
                     points -= 1
+        # trafienie czy pudło:
         if word == self.word:
-            self.game.windows.mainWindow.timer_stop()
             self.game.scores[self.current_player.nickname] += points
-            self.game.windows.mainWindow.label_word.setText(self.word.upper())   # Correct word!
-            for char in word:
-                if char not in self.used_letters:
-                    self.used_letters += char
-            # todo
-            #   next_round()
+            self.game.windows.mainWindow.update_players()
+            self.next_player()
+            self.game.windows.mainWindow.show_answer()
         else:
             self.game.scores[self.current_player.nickname] -= points
+            self.game.windows.mainWindow.update_players()
+            self.next_player()
+            self.game.windows.mainWindow.timer_start()
+
+    def timeout(self):
+        if self.timeleft > 0:
+            self.timeleft -= 1
+        else:
+            self.timeleft = self.time
+            self.next_player()
             self.wrong_guess()
 
     def wrong_guess(self):
-        self.lifes -= 1
-        self.game.windows.mainWindow.update_img()
-        if self.lifes == 1:
-            self.game.windows.mainWindow.timer_stop()
+        if self.lifes > 2:
+            self.lifes -= 1
+            self.game.windows.mainWindow.update_img()
+            self.game.windows.mainWindow.timer_start()
+        else:
+            self.game.windows.mainWindow.show_answer()
 
-
-
+    def randomize_order(self):
+        random.shuffle(self.players_order)
