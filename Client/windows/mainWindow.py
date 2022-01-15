@@ -10,7 +10,7 @@ class Ui_mainWindow(object):
         self.e_scores = []
         self.e_categories = []
         self.timer_s_start = 100
-        self.timer_answer_s_start = 400
+        self.timer_answer_s_start = 300
         self.timer = QTimer()
         self.timer_answer = QTimer()
         self.timer_s = self.timer_s_start

@@ -20,7 +20,7 @@ class Game:
         self.online = False
         self.session = None
         self.round = Round(self)
-        self.rounds_in_game = 5
+        self.rounds_in_game = 2
         self.windows = Windows(self)
 
     def run(self):
@@ -36,6 +36,8 @@ class Game:
 
     def game_over(self):
         self.windows.mainWindow.timer_stop()
+        self.windows.formScores.update()
+        self.windows.show_formScores()
         pass
         # todo
         #   hide items

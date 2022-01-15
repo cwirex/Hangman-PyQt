@@ -12,7 +12,7 @@ class Round:
             self.current_player = self.players_order[0]
         self.used_letters = ""
         self.lifes = 10  # current lifes; max=10
-        self.time = 2  # in seconds
+        self.time = 5  # in seconds
         self.timeleft = self.time
 
     def next(self):
