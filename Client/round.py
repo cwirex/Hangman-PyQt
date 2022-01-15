@@ -84,9 +84,9 @@ class Round:
             self.wrong_guess()
 
     def wrong_guess(self):
-        if self.lifes > 2:
-            self.lifes -= 1
-            self.game.windows.mainWindow.update_img()
+        self.lifes -= 1
+        self.game.windows.mainWindow.update_img()
+        if self.lifes > 1:
             self.game.windows.mainWindow.timer_start()
         else:
             self.game.windows.mainWindow.show_answer()
