@@ -1,0 +1,29 @@
+{
+  "jedzenie": [
+    "woda",
+    "chleb",
+    "marchew",
+    "jab\u0142ko",
+    "pizza",
+    "hamburger"
+  ],
+  "zwierze": [
+    "pies",
+    "kot",
+    "krowa",
+    "zaj\u0105c",
+    "ko\u0144",
+    "\u017cyrafa",
+    "hipopotam",
+    "jastrz\u0105b"
+  ],
+  "pustynia": [
+    "piasek",
+    "wydmy",
+    "oaza",
+    "Sahara",
+    "arab",
+    "pustkowie",
+    "piramidy"
+  ]
+}

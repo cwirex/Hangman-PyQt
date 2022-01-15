@@ -1,3 +1,4 @@
+import json
 import random
 import sys
 from PyQt5 import QtWidgets
@@ -24,6 +25,8 @@ class Game:
         self.windows = Windows(self)
 
     def run(self):
+        self.update_categories()
+        self.set_category(self.categories[0])
         self.windows.show_formNickname()
         sys.exit(self.app.exec_())
 
@@ -110,14 +113,45 @@ class Game:
         self.windows.mainWindow.update_category()
         self.update_words()
 
-    def update_words(self):  # Todo add Offline mode, pobierz plik json z bazy słów
+    def update_words(self):
         if self.online:
+            self.download_words()
             self.words = []
             cat = self.round.category
             words = self.session.query(Word).all()
             for w in words:
                 if w.category == cat:
                     self.words.append(w.word)
+        else:
+            self.words = self.get_words_fromFile('words_basic.json')
+
+    def download_words(self):       # todo: Szyfruj plik JSON
+        # try:
+            query = self.session.query(Word).all()
+            data = {}
+            categories = []
+            [categories.append(q.category) for q in query if q.category not in categories]  # uniq(categories)
+            for c in categories:
+                data[c] = []
+            for q in query:
+                data[q.category].append(q.word)
+            with open('words.json', 'w') as file:
+                json.dump(data, file, indent=2)
+        # except:
+        #     pass# print("Exception: downloading words.json from DB failed.")
+
+    def get_words_fromFile(self, filename):
+        with open(filename, 'r') as file:
+            data = json.load(file)
+        words = []
+        for w in data[self.round.category]:
+            words.append(w)
+        return words
+
+    def get_categories_fromFile(self, filename):
+        with open(filename, 'r') as file:
+            data = json.load(file)
+        return [c for c in data.keys()]
 
     def set_game_id(self, id):
         self.game_id = id
@@ -128,18 +162,19 @@ class Game:
         try:
             Base.metadata.create_all(engine)
             self.session = Session()
-            self.update_categories()
-            self.set_category(self.categories[0])
             self.set_game_id(self.get_game_id())
         except:
             print('game.set_online failed')
             self.online = False
 
-    def update_categories(self):  # Todo if !online
-        words = self.session.query(Word).all()
-        temp = []
-        [temp.append(w.category) for w in words if w.category not in temp]  # uniq(categories)
-        self.categories = temp
+    def update_categories(self):
+        if self.online:
+            words = self.session.query(Word).all()
+            temp = []
+            [temp.append(w.category) for w in words if w.category not in temp]  # uniq(categories)
+            self.categories = temp
+        else:
+            self.categories = self.get_categories_fromFile('words_basic.json')
         self.categories.sort()
         self.windows.mainWindow.update_categories()
 
