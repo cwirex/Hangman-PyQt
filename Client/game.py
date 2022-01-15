@@ -38,11 +38,20 @@ class Game:
         self.windows.mainWindow.timer_stop()
         self.windows.formScores.update()
         self.windows.show_formScores()
-        pass
-        # todo
-        #   hide items
-        #   show scores
-        #   save scores to db
+        if self.online:
+            self.send_scores()
+
+    def send_scores(self):
+        try:
+            scores = []
+            for scr in self.scores.keys():
+                scores.append(Score(self.game_id, scr, self.scores[scr]))
+            for s in scores:
+                self.session.add(s)
+            self.session.commit()
+        except:
+            print("Exception caught in Client.game.send_scores()\n"
+                  "Couldn't send scores to db")
 
     def get_current_nickname(self):
         return self.round.current_player.nickname
@@ -58,7 +67,7 @@ class Game:
                         self.session.add(player)
                         self.session.commit()
                 except:
-                    print("Registering new player to the db failed.")
+                    print("Exception: Registering new player to the db failed.")
         self.windows.mainWindow.update_players()
 
     def player_remove(self, name):
