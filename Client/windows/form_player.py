@@ -8,7 +8,7 @@ class Ui_formPlayer(object):
     def bind(self):
         self.pushButton_confirm.clicked.connect(self.clicked)
         self.spinBox_avatar.valueChanged.connect(self.changeAvatar)
-        self.img_avatar.setPixmap(QtGui.QPixmap(f'/home/mateusz/PycharmProjects/Hangman/Client/img/a{self.spinBox_avatar.text()}_small.jpg'))
+        self.img_avatar.setPixmap(QtGui.QPixmap(f'img/a{self.spinBox_avatar.text()}_small.jpg'))
 
     def clicked(self):
         if self.lineEdit_email.text():
@@ -26,7 +26,7 @@ class Ui_formPlayer(object):
 
     def changeAvatar(self):
         self.img_avatar.setPixmap(
-            QtGui.QPixmap(f'/home/mateusz/PycharmProjects/Hangman/Client/img/a{self.spinBox_avatar.text()}_small.jpg'))
+            QtGui.QPixmap(f'img/a{self.spinBox_avatar.text()}_small.jpg'))
 
     def set_player_name(self, name):
         self.playerName = name

@@ -5,7 +5,6 @@ game = Game()
 
 
 def main():
-    # Todo: Wczytaj hasła
     game.run()
 
 

@@ -112,7 +112,8 @@ class Ui_mainWindow(object):
 
     def update_img(self):
         lifes = self.windows.game.round.lifes
-        img = f'/home/mateusz/PycharmProjects/Hangman/Client/img/h{lifes}_small.jpeg'
+        # Client/img/h1_small.jpeg
+        img = f'img\\h{lifes}_small.jpeg'
         try:
             self.img_hangman.setPixmap(QtGui.QPixmap(img))
         except:
