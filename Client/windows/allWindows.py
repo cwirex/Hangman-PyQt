@@ -36,8 +36,6 @@ class Windows:
     def show_mainWindow(self):
         """
         Display the main window and hide all other windows.
-
-        :return:
         """
         self.QmainWindow.show()
         self.QformNickname.hide()
@@ -47,8 +45,6 @@ class Windows:
     def show_formNickname(self):
         """
         Display formNickname window and hide other widgets.
-
-        :return:
         """
         self.QformNickname.show()
         self.QformPlayer.hide()
@@ -57,8 +53,6 @@ class Windows:
     def show_formPlayer(self):
         """
         Display formPlayer window and hide other widgets.
-
-        :return:
         """
         self.QformPlayer.show()
         self.QmainWindow.hide()
@@ -67,8 +61,6 @@ class Windows:
     def show_formScores(self):
         """
         Display formScores window.
-
-        :return:
         """
         self.QformScores.show()
 

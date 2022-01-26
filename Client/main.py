@@ -3,8 +3,7 @@ from Server.dbase import Base, Session, engine
 
 
 def main():
-    """Runs the game in online or offline mode.
-    """
+    """Runs the game in online or offline mode."""
     game.run()
 
 
@@ -20,15 +19,3 @@ if __name__ == '__main__':
         print("Couldn't connect to database, running in offline mode.")
     finally:
         main()
-
-
-"""[Summary]
-
-:param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]
-:type [ParamName]: [ParamType](, optional)
-...
-:raises [ErrorType]: [ErrorDescription]
-...
-:return: [ReturnDescription]
-:rtype: [ReturnType]
-"""

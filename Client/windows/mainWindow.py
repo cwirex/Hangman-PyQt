@@ -27,8 +27,6 @@ class Ui_mainWindow(object):
     def bind(self):
         """
         Bind function to window
-
-        :return:
         """
         self.line_letter.textChanged.connect(self.trim_letter)
         self.btn_letter.clicked.connect(self.btn_GuessLetter_clicked)
@@ -43,8 +41,6 @@ class Ui_mainWindow(object):
     def start_game(self):
         """
         Start game (when button pressed)
-
-        :return:
         """
         self.windows.game.start_game()
 
@@ -62,8 +58,6 @@ class Ui_mainWindow(object):
     def remove_all(self):
         """
         Call function to remove all players
-
-        :return:
         """
         self.windows.game.player_remove_all()
 
@@ -72,15 +66,12 @@ class Ui_mainWindow(object):
         Update window to show current player (form given nick)
 
         :param nick: string representing the player
-        :return:
         """
         self.label_current_player.setText(f"Now: {nick}")
 
     def timer_timeout(self):
         """
         Update bar timer, eventually call function round.timeout()
-
-        :return:
         """
         if self.timer_s > 0:
             self.timer_s -= 1
@@ -94,8 +85,6 @@ class Ui_mainWindow(object):
     def timer_restart(self):
         """
         Starts the timer from max value
-
-        :return:
         """
         self.timer_s = self.timer_s_start
         self.timer_start()
@@ -103,8 +92,6 @@ class Ui_mainWindow(object):
     def timer_reset(self):
         """
         Stops timer and sets its max value
-
-        :return:
         """
         self.timer.stop()
         self.bar_timer.setValue(100)
@@ -114,24 +101,18 @@ class Ui_mainWindow(object):
     def timer_start(self):
         """
         Start timer
-
-        :return:
         """
         self.timer.start(10)  # przerwania co 10 ms
 
     def timer_stop(self):
         """
         Stop timer
-
-        :return:
         """
         self.timer.stop()
 
     def show_answer(self):
         """
         Display answer and reset timer
-
-        :return:
         """
         self.timer_reset()
         self.timer_answer_s = self.timer_answer_s_start
@@ -141,8 +122,6 @@ class Ui_mainWindow(object):
     def show_answer_update(self):
         """
         Update bar timer while showing answer
-
-        :return:
         """
         self.timer_answer_s -= 1
         self.bar_timer.setValue(int(self.timer_answer_s / self.timer_answer_s_start * 100))
@@ -155,7 +134,6 @@ class Ui_mainWindow(object):
         Update used letters and display them
 
         :param string: string representing the letters used
-        :return:
         """
         final = ""
         for char in string:
@@ -166,8 +144,6 @@ class Ui_mainWindow(object):
     def update(self):
         """
         Update everything
-
-        :return:
         """
         self.update_game_id()
         self.update_players()
@@ -183,8 +159,6 @@ class Ui_mainWindow(object):
     def update_word(self):
         """
         Update current word display
-
-        :return:
         """
         word = self.windows.game.round.word
         result = ""
@@ -198,8 +172,6 @@ class Ui_mainWindow(object):
     def update_img(self):
         """
         Update current image display
-
-        :return:
         """
         lifes = self.windows.game.round.lifes
         # Client/img/h1_small.jpeg
@@ -212,8 +184,6 @@ class Ui_mainWindow(object):
     def update_time(self):
         """
         Update bar time display
-
-        :return:
         """
         time = ((self.windows.game.round.timeleft - 1 + self.timer_s / 100) / self.windows.game.round.time) * 100
         self.bar_timer.setValue(time)
@@ -221,32 +191,24 @@ class Ui_mainWindow(object):
     def update_round(self):
         """
         Update current round number display
-
-        :return:
         """
         self.label_round.setText(f"Round {self.windows.game.round.id}/{self.windows.game.rounds_in_game}")
 
     def update_current_player(self):
         """
         Update current player name display
-
-        :return:
         """
         self.label_current_player.setText(f"Now: {self.windows.game.get_current_nickname()}")
 
     def update_game_id(self):
         """
         Update current game id display
-
-        :return:
         """
         self.label_game.setText(f'Game {self.windows.game.game_id}')
 
     def update_categories(self):
         """
         Update current game categories display
-
-        :return:
         """
         while len(self.e_categories) > 0:
             self.menuChoose_category.removeAction(self.e_categories.pop())
@@ -260,8 +222,6 @@ class Ui_mainWindow(object):
     def update_players(self):
         """
         Update table with players and their scores.
-
-        :return:
         """
         for i in range(self.formLayout.rowCount() - 1):
             self.formLayout.removeRow(1)
@@ -290,8 +250,6 @@ class Ui_mainWindow(object):
     def update_category(self):
         """
         Update current category display
-
-        :return:
         """
         category = self.windows.game.round.category
         self.label_category.setText(f'Category: {category.capitalize()}')
@@ -299,8 +257,6 @@ class Ui_mainWindow(object):
     def trim_letter(self):
         """
         Update entered letter to be at max length 1
-
-        :return:
         """
         text = self.line_letter.text()
         if len(text) > 1:
@@ -310,8 +266,6 @@ class Ui_mainWindow(object):
     def btn_GuessLetter_clicked(self):
         """
         Check if letter is correct and call function to check if is in word
-
-        :return:
         """
         letter = self.line_letter.text().lower()
         self.line_letter.setText("")
@@ -323,8 +277,6 @@ class Ui_mainWindow(object):
     def btn_GuessWord_clicked(self):
         """
         Call function to check if word is correct
-
-        :return:
         """
         self.timer_reset()
         word = self.line_word.text().lower()
@@ -346,7 +298,6 @@ class Ui_mainWindow(object):
         Setup the UI
 
         :param mainWindow: mainWindow
-        :return:
         """
         mainWindow.setObjectName("mainWindow")
         mainWindow.resize(1600, 900)
@@ -573,7 +524,6 @@ class Ui_mainWindow(object):
         Retranslate the UI
 
         :param mainWindow: mainWindow
-        :return:
         """
         _translate = QtCore.QCoreApplication.translate
         mainWindow.setWindowTitle(_translate("mainWindow", "MainWindow"))

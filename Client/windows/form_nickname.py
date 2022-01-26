@@ -18,7 +18,6 @@ class Ui_formNickname(object):
         """
         Bind function to window
 
-        :return:
         """
         self.pushButton.clicked.connect(self.btn_clicked)
 
@@ -26,7 +25,6 @@ class Ui_formNickname(object):
         """
         Read nickname and serve it. If nickname is in database fetch details of an account
 
-        :return:
         """
         nick = self.lineEdit.text()
         if nick:
@@ -43,7 +41,6 @@ class Ui_formNickname(object):
         Setup the UI
 
         :param formNickname: formNickname
-        :return:
         """
         formNickname.setObjectName("QformNickname")
         formNickname.resize(401, 230)
@@ -77,7 +74,6 @@ class Ui_formNickname(object):
         Retranslate the UI
 
         :param formNickname: formNickname
-        :return:
         """
         _translate = QtCore.QCoreApplication.translate
         formNickname.setWindowTitle(_translate("QformNickname", "Form"))

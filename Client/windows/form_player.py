@@ -17,8 +17,6 @@ class Ui_formPlayer(object):
     def bind(self):
         """
         Bind functions to window
-
-        :return:
         """
         self.pushButton_confirm.clicked.connect(self.clicked)
         self.spinBox_avatar.valueChanged.connect(self.changeAvatar)
@@ -27,8 +25,6 @@ class Ui_formPlayer(object):
     def clicked(self):
         """
         Check form: if correct create player
-
-        :return:
         """
         if self.lineEdit_email.text():
             email = self.lineEdit_email.text()
@@ -47,7 +43,6 @@ class Ui_formPlayer(object):
         """
         Update current avatar image
 
-        :return:
         """
         self.img_avatar.setPixmap(
             QtGui.QPixmap(f'img/a{self.spinBox_avatar.text()}_small.jpg'))
@@ -57,7 +52,6 @@ class Ui_formPlayer(object):
         Set form's player name label
 
         :param name: string representing the player
-        :return:
         """
         self.playerName = name
         self.label_header.setText(f"Create {self.playerName}")
@@ -67,7 +61,6 @@ class Ui_formPlayer(object):
         Setup the UI
 
         :param formPlayer: formPlayer
-        :return:
         """
         formPlayer.setObjectName("QformPlayer")
         formPlayer.resize(401, 350)
@@ -135,7 +128,6 @@ class Ui_formPlayer(object):
         Retranslate the UI
 
         :param formPlayer: formPlayer
-        :return:
         """
         _translate = QtCore.QCoreApplication.translate
         formPlayer.setWindowTitle(_translate("QformPlayer", "Form"))

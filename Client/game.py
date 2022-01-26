@@ -17,7 +17,6 @@ class Game:
         """
         Initialize object of a class Game with defaults.
 
-        :return:
         """
         self.app = QtWidgets.QApplication(sys.argv)
         self.game_id = 1
@@ -35,7 +34,6 @@ class Game:
         """
         Run game and show login window.
 
-        :return:
         """
         self.windows.show_formNickname()
         sys.exit(self.app.exec_())
@@ -44,7 +42,6 @@ class Game:
         """
         Prepare game to start: chooses category, word and start new round.
 
-        :return:
         """
         cat = self.round.category
         word = self.get_random_word()
@@ -56,7 +53,6 @@ class Game:
         """
         Stop game and show scores
 
-        :return:
         """
         self.windows.mainWindow.timer_stop()
         self.windows.formScores.update()
@@ -76,7 +72,6 @@ class Game:
         :param email: string
         :param avatar: integer
         :param gender: boolean
-        :return:
         """
         if nickname not in [p.nickname for p in self.players]:
             player = Player(nickname, email, avatar, gender)
@@ -96,7 +91,6 @@ class Game:
         Remove player from the game
 
         :param name: string representing the player
-        :return:
         """
         for i in range(len(self.players)):
             if self.players[i].nickname == name:
@@ -107,8 +101,6 @@ class Game:
     def player_remove_all(self):
         """
         Remove all players from the game
-
-        :return:
         """
         self.players = []
         self.scores = {}
@@ -137,7 +129,6 @@ class Game:
         Login player with given nick by fetching data from db
 
         :param nick: string representing the player
-        :return:
         """
         players = self.players
         if self.online:
@@ -154,7 +145,6 @@ class Game:
         Change current category to given category name
 
         :param name: string representing the category
-        :return:
         """
         self.round.category = name
         self.windows.mainWindow.update_category()
@@ -163,8 +153,6 @@ class Game:
     def update_words(self):  # Todo add Offline mode, pobierz plik json z bazy słów
         """
         Update list of words
-
-        :return:
         """
         if self.online:
             self.words = []
@@ -179,7 +167,6 @@ class Game:
         Set the game id and update mainWindow
 
         :param id: integer
-        :return:
         """
         self.game_id = id
         self.windows.mainWindow.update_game_id()
@@ -187,8 +174,6 @@ class Game:
     def set_online(self):
         """
         Set game to online mode
-
-        :return:
         """
         self.online = True
         try:
@@ -204,8 +189,6 @@ class Game:
     def update_categories(self):  # Todo if !online
         """
         Update list of categories
-
-        :return:
         """
         words = self.session.query(Word).all()
         temp = []

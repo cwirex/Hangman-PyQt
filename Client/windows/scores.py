@@ -16,8 +16,6 @@ class Ui_Scores(object):
     def bind(self):
         """
         Bind function to window
-
-        :return:
         """
         self.btn_continue.clicked.connect(self.btn_continue_clicked)
         self.btn_quit.clicked.connect(self.btn_quit_clicked)
@@ -25,8 +23,6 @@ class Ui_Scores(object):
     def update(self):
         """
         Update everything
-
-        :return:
         """
         self.label_header.setText(f"Scores - Game {self.windows.game.game_id}")
         #   Update Players and their Scores:
@@ -58,7 +54,6 @@ class Ui_Scores(object):
         Setup the UI
 
         :param Scores: Scores
-        :return:
         """
         Scores.setObjectName("Scores")
         Scores.resize(743, 453)
@@ -103,7 +98,6 @@ class Ui_Scores(object):
         Retranslate the UI
 
         :param Scores: Scores
-        :return:
         """
         _translate = QtCore.QCoreApplication.translate
         Scores.setWindowTitle(_translate("Scores", "Scores"))

@@ -8,6 +8,7 @@ class Round:
     def __init__(self, game, category=None, word=None):
         """
         Create a new round
+
         :param game: Game object
         :param category: strting (optional)
         :param word: string (optional)
@@ -27,7 +28,6 @@ class Round:
     def next(self):
         """
         Runs next round
-        :return:
         """
         self.game.windows.mainWindow.timer_reset()
         if self.id < self.game.rounds_in_game:
@@ -44,7 +44,6 @@ class Round:
     def next_player(self):
         """
         Selects the next player (in a defined order)
-        :return:
         """
         i = self.players_order.index(self.current_player)
         i += 1
@@ -56,7 +55,6 @@ class Round:
         """
         Check if letter is in current word and serve it.
         :param letter: character
-        :return:
         """
         self.used_letters += letter
         self.game.windows.mainWindow.set_used_letters(self.used_letters)
@@ -82,7 +80,6 @@ class Round:
         """
         Check if guessed word matches current word and serve it.
         :param word: string
-        :return:
         """
         # oblicz możliwe punkty za trafienie/pudło:
         points = len(self.word)
@@ -105,7 +102,6 @@ class Round:
     def timeout(self):
         """
         Decrease time left, if time left is zero, move to next player.
-        :return:
         """
         if self.timeleft > 0:
             self.timeleft -= 1
@@ -117,7 +113,6 @@ class Round:
     def wrong_guess(self):
         """
         Decrease current lifes and move to the next player, if lifes left is zero show answer.
-        :return:
         """
         self.lifes -= 1
         self.game.windows.mainWindow.update_img()
@@ -129,6 +124,5 @@ class Round:
     def randomize_order(self):
         """
         Randomize the order of the players
-        :return:
         """
         random.shuffle(self.players_order)
