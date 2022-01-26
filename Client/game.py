@@ -10,7 +10,15 @@ from Server.word import Word
 
 
 class Game:
+    """
+    Class representing a game. Holds information about the players, categories, words, scores...
+    """
     def __init__(self):
+        """
+        Initialize object of a class Game with defaults.
+
+        :return:
+        """
         self.app = QtWidgets.QApplication(sys.argv)
         self.game_id = 1
         self.players = []
@@ -24,10 +32,20 @@ class Game:
         self.windows = Windows(self)
 
     def run(self):
+        """
+        Run game and show login window.
+
+        :return:
+        """
         self.windows.show_formNickname()
         sys.exit(self.app.exec_())
 
     def start_game(self):
+        """
+        Prepare game to start: chooses category, word and start new round.
+
+        :return:
+        """
         cat = self.round.category
         word = self.get_random_word()
         self.round = Round(self, cat, word)
@@ -35,19 +53,31 @@ class Game:
         self.windows.mainWindow.update()
 
     def game_over(self):
+        """
+        Stop game and show scores
+
+        :return:
+        """
         self.windows.mainWindow.timer_stop()
         self.windows.formScores.update()
         self.windows.show_formScores()
-        pass
-        # todo
-        #   hide items
-        #   show scores
-        #   save scores to db
 
     def get_current_nickname(self):
+        """Returns nickname of current player
+
+        :return: string
+        """
         return self.round.current_player.nickname
 
     def player_add(self, nickname, email, avatar, gender):
+        """Create a new player from given parameters and add it to the game (and database)
+
+        :param nickname: string representing the player
+        :param email: string
+        :param avatar: integer
+        :param gender: boolean
+        :return:
+        """
         if nickname not in [p.nickname for p in self.players]:
             player = Player(nickname, email, avatar, gender)
             self.players.append(player)
@@ -62,6 +92,12 @@ class Game:
         self.windows.mainWindow.update_players()
 
     def player_remove(self, name):
+        """
+        Remove player from the game
+
+        :param name: string representing the player
+        :return:
+        """
         for i in range(len(self.players)):
             if self.players[i].nickname == name:
                 self.players.remove(i)
@@ -69,11 +105,22 @@ class Game:
         self.windows.mainWindow.update_players()
 
     def player_remove_all(self):
+        """
+        Remove all players from the game
+
+        :return:
+        """
         self.players = []
         self.scores = {}
         self.windows.mainWindow.update_players()
 
     def playerExists(self, nick):
+        """
+        Returns True if the player exists
+
+        :param nick: string representing the player
+        :return: boolean
+        """
         players = self.players
         if self.online:
             try:
@@ -86,6 +133,12 @@ class Game:
         return False
 
     def playerLogin(self, nick):
+        """
+        Login player with given nick by fetching data from db
+
+        :param nick: string representing the player
+        :return:
+        """
         players = self.players
         if self.online:
             try:
@@ -97,11 +150,22 @@ class Game:
                 self.player_add(p.nickname, p.email, p.avatar, p.gender)
 
     def set_category(self, name):
+        """
+        Change current category to given category name
+
+        :param name: string representing the category
+        :return:
+        """
         self.round.category = name
         self.windows.mainWindow.update_category()
         self.update_words()
 
     def update_words(self):  # Todo add Offline mode, pobierz plik json z bazy słów
+        """
+        Update list of words
+
+        :return:
+        """
         if self.online:
             self.words = []
             cat = self.round.category
@@ -111,10 +175,21 @@ class Game:
                     self.words.append(w.word)
 
     def set_game_id(self, id):
+        """
+        Set the game id and update mainWindow
+
+        :param id: integer
+        :return:
+        """
         self.game_id = id
         self.windows.mainWindow.update_game_id()
 
     def set_online(self):
+        """
+        Set game to online mode
+
+        :return:
+        """
         self.online = True
         try:
             Base.metadata.create_all(engine)
@@ -127,6 +202,11 @@ class Game:
             self.online = False
 
     def update_categories(self):  # Todo if !online
+        """
+        Update list of categories
+
+        :return:
+        """
         words = self.session.query(Word).all()
         temp = []
         [temp.append(w.category) for w in words if w.category not in temp]  # uniq(categories)
@@ -134,11 +214,21 @@ class Game:
         self.categories.sort()
         self.windows.mainWindow.update_categories()
 
-    def get_game_id(self):  # wyszukaj dostępne (kolejne) id w bazie
+    def get_game_id(self):
+        """
+        Finds available game id in database
+
+        :return: integer representing game id
+        """
         scores = self.session.query(Score).all()
         return 1 + max([s.game_id for s in scores])
 
     def get_random_word(self):
+        """
+        Looks for a new word in list of words
+
+        :return: string representing the random word
+        """
         words = self.words.copy()
         if self.round.word in words:
             words.remove(self.round.word)
