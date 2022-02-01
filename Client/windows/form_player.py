@@ -1,16 +1,31 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_formPlayer(object):
+    """
+    Window class for entering a form of account details.
+    """
     def __init__(self, windows=None, nickname=None):
+        """
+        Initialize object
+
+        :param windows: Windows (parent)
+        :param nickname: string representing the player
+        """
         self.windows = windows
         self.playerName = nickname
 
     def bind(self):
+        """
+        Bind functions to window
+        """
         self.pushButton_confirm.clicked.connect(self.clicked)
         self.spinBox_avatar.valueChanged.connect(self.changeAvatar)
-        self.img_avatar.setPixmap(QtGui.QPixmap(f'/home/mateusz/PycharmProjects/Hangman/Client/img/a{self.spinBox_avatar.text()}_small.jpg'))
+        self.img_avatar.setPixmap(QtGui.QPixmap(f'img/a{self.spinBox_avatar.text()}_small.jpg'))
 
     def clicked(self):
+        """
+        Check form: if correct create player
+        """
         if self.lineEdit_email.text():
             email = self.lineEdit_email.text()
             gender = self.radioButton_male.isChecked()
@@ -25,14 +40,28 @@ class Ui_formPlayer(object):
             self.label_invalid.setStyleSheet("color: red;")
 
     def changeAvatar(self):
+        """
+        Update current avatar image
+
+        """
         self.img_avatar.setPixmap(
-            QtGui.QPixmap(f'/home/mateusz/PycharmProjects/Hangman/Client/img/a{self.spinBox_avatar.text()}_small.jpg'))
+            QtGui.QPixmap(f'img/a{self.spinBox_avatar.text()}_small.jpg'))
 
     def set_player_name(self, name):
+        """
+        Set form's player name label
+
+        :param name: string representing the player
+        """
         self.playerName = name
         self.label_header.setText(f"Create {self.playerName}")
 
     def setupUi(self, formPlayer):
+        """
+        Setup the UI
+
+        :param formPlayer: formPlayer
+        """
         formPlayer.setObjectName("QformPlayer")
         formPlayer.resize(401, 350)
         self.label_header = QtWidgets.QLabel(formPlayer)
@@ -95,6 +124,11 @@ class Ui_formPlayer(object):
         QtCore.QMetaObject.connectSlotsByName(formPlayer)
 
     def retranslateUi(self, formPlayer):
+        """
+        Retranslate the UI
+
+        :param formPlayer: formPlayer
+        """
         _translate = QtCore.QCoreApplication.translate
         formPlayer.setWindowTitle(_translate("QformPlayer", "Form"))
         self.label_header.setText(_translate("QformPlayer", "Create new playerName"))

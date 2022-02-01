@@ -4,7 +4,15 @@ from PyQt5.QtCore import QTimer
 
 
 class Ui_mainWindow(object):
+    """
+    Window class which allows to play the game
+    """
     def __init__(self, windows=None):
+        """
+        Initialize object
+
+        :param windows: Windows (parent)
+        """
         self.windows = windows
         self.e_players = []
         self.e_scores = []
@@ -17,6 +25,9 @@ class Ui_mainWindow(object):
         self.timer_answer_s = self.timer_answer_s_start
 
     def bind(self):
+        """
+        Bind function to window
+        """
         self.line_letter.textChanged.connect(self.trim_letter)
         self.btn_letter.clicked.connect(self.btn_GuessLetter_clicked)
         self.btn_word.clicked.connect(self.btn_GuessWord_clicked)
@@ -28,21 +39,40 @@ class Ui_mainWindow(object):
         self.timer_answer.timeout.connect(self.show_answer_update)
 
     def start_game(self):
+        """
+        Start game (when button pressed)
+        """
         self.windows.game.start_game()
 
     def add_player(self):
+        """
+        Call function to add a new player
+
+        :return:
+        """
         self.windows.show_formNickname()
 
     def remove_player(self):  # (na później)
         pass
 
     def remove_all(self):
+        """
+        Call function to remove all players
+        """
         self.windows.game.player_remove_all()
 
     def set_guessing_player(self, nick):
+        """
+        Update window to show current player (form given nick)
+
+        :param nick: string representing the player
+        """
         self.label_current_player.setText(f"Now: {nick}")
 
     def timer_timeout(self):
+        """
+        Update bar timer, eventually call function round.timeout()
+        """
         if self.timer_s > 0:
             self.timer_s -= 1
         else:
@@ -53,28 +83,46 @@ class Ui_mainWindow(object):
         self.bar_timer.setValue(time)
 
     def timer_restart(self):
+        """
+        Starts the timer from max value
+        """
         self.timer_s = self.timer_s_start
         self.timer_start()
 
     def timer_reset(self):
+        """
+        Stops timer and sets its max value
+        """
         self.timer.stop()
         self.bar_timer.setValue(100)
         self.timer_s = self.timer_s_start
         self.windows.game.round.timeleft = self.windows.game.round.time
 
     def timer_start(self):
+        """
+        Start timer
+        """
         self.timer.start(10)  # przerwania co 10 ms
 
     def timer_stop(self):
+        """
+        Stop timer
+        """
         self.timer.stop()
 
     def show_answer(self):
+        """
+        Display answer and reset timer
+        """
         self.timer_reset()
         self.timer_answer_s = self.timer_answer_s_start
         self.label_word.setText(self.windows.game.round.word.upper())
         self.timer_answer.start(10)
 
     def show_answer_update(self):
+        """
+        Update bar timer while showing answer
+        """
         self.timer_answer_s -= 1
         self.bar_timer.setValue(int(self.timer_answer_s / self.timer_answer_s_start * 100))
         if self.timer_answer_s == 0:
@@ -82,6 +130,11 @@ class Ui_mainWindow(object):
             self.windows.game.round.next()
 
     def set_used_letters(self, string):
+        """
+        Update used letters and display them
+
+        :param string: string representing the letters used
+        """
         final = ""
         for char in string:
             final += char + " "
@@ -89,6 +142,9 @@ class Ui_mainWindow(object):
         self.used_letters.setText(final)
 
     def update(self):
+        """
+        Update everything
+        """
         self.update_game_id()
         self.update_players()
         self.update_categories()
@@ -101,6 +157,9 @@ class Ui_mainWindow(object):
         self.update_round()
 
     def update_word(self):
+        """
+        Update current word display
+        """
         word = self.windows.game.round.word
         result = ""
         for char in word:
@@ -111,27 +170,45 @@ class Ui_mainWindow(object):
         self.label_word.setText(result)
 
     def update_img(self):
+        """
+        Update current image display
+        """
         lifes = self.windows.game.round.lifes
-        img = f'/home/mateusz/PycharmProjects/Hangman/Client/img/h{lifes}_small.jpeg'
+        img = f'img/h{lifes}_small.jpeg'
         try:
             self.img_hangman.setPixmap(QtGui.QPixmap(img))
         except:
             print('Img not found')
 
     def update_time(self):
+        """
+        Update bar time display
+        """
         time = ((self.windows.game.round.timeleft - 1 + self.timer_s / 100) / self.windows.game.round.time) * 100
         self.bar_timer.setValue(time)
 
     def update_round(self):
+        """
+        Update current round number display
+        """
         self.label_round.setText(f"Round {self.windows.game.round.id}/{self.windows.game.rounds_in_game}")
 
     def update_current_player(self):
+        """
+        Update current player name display
+        """
         self.label_current_player.setText(f"Now: {self.windows.game.get_current_nickname()}")
 
     def update_game_id(self):
+        """
+        Update current game id display
+        """
         self.label_game.setText(f'Game {self.windows.game.game_id}')
 
     def update_categories(self):
+        """
+        Update current game categories display
+        """
         while len(self.e_categories) > 0:
             self.menuChoose_category.removeAction(self.e_categories.pop())
         for i in range(len(self.windows.game.categories)):
@@ -141,7 +218,10 @@ class Ui_mainWindow(object):
             self.e_categories[i].setText(f"{self.windows.game.categories[i].capitalize()}")
             self.e_categories[i].triggered.connect(self.create_lambda(self.e_categories[i].text().lower()))
 
-    def update_players(self):  # Todo: scores
+    def update_players(self):
+        """
+        Update table with players and their scores.
+        """
         for i in range(self.formLayout.rowCount() - 1):
             self.formLayout.removeRow(1)
         self.e_players = []
@@ -167,16 +247,25 @@ class Ui_mainWindow(object):
             self.e_scores[i].setText(f'{player_score}')
 
     def update_category(self):
+        """
+        Update current category display
+        """
         category = self.windows.game.round.category
         self.label_category.setText(f'Category: {category.capitalize()}')
 
     def trim_letter(self):
+        """
+        Update entered letter to be at max length 1
+        """
         text = self.line_letter.text()
         if len(text) > 1:
             text = text[-1]
         self.line_letter.setText(text.upper())
 
     def btn_GuessLetter_clicked(self):
+        """
+        Check if letter is correct and call function to check if is in word
+        """
         letter = self.line_letter.text().lower()
         self.line_letter.setText("")
         if letter not in self.windows.game.round.used_letters:
@@ -185,6 +274,9 @@ class Ui_mainWindow(object):
             # self.timer_start()
 
     def btn_GuessWord_clicked(self):
+        """
+        Call function to check if word is correct
+        """
         self.timer_reset()
         word = self.line_word.text().lower()
         self.line_word.setText("")
@@ -192,9 +284,20 @@ class Ui_mainWindow(object):
         # self.timer_start()
 
     def create_lambda(self, text):
+        """
+        Create function to bind category label with action
+
+        :param text: string representing category
+        :return: function lambda
+        """
         return lambda: self.windows.game.set_category(text)
 
     def setupUi(self, mainWindow):
+        """
+        Setup the UI
+
+        :param mainWindow: mainWindow
+        """
         mainWindow.setObjectName("mainWindow")
         mainWindow.resize(1600, 900)
         mainWindow.setLayoutDirection(QtCore.Qt.LeftToRight)
@@ -416,6 +519,11 @@ class Ui_mainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(mainWindow)
 
     def retranslateUi(self, mainWindow):
+        """
+        Retranslate the UI
+
+        :param mainWindow: mainWindow
+        """
         _translate = QtCore.QCoreApplication.translate
         mainWindow.setWindowTitle(_translate("mainWindow", "MainWindow"))
         self.label_word.setText(_translate("mainWindow", "Add Players & Start "))

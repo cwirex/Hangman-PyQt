@@ -2,13 +2,30 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_formNickname(object):
+    """
+    Window class for entering a nickname
+    """
+
     def __init__(self, windows=None):
+        """
+        Initialize object
+
+        :param windows: Windows (parent)
+        """
         self.windows = windows
 
     def bind(self):
+        """
+        Bind function to window
+
+        """
         self.pushButton.clicked.connect(self.btn_clicked)
 
     def btn_clicked(self):
+        """
+        Read nickname and serve it. If nickname is in database fetch details of an account
+
+        """
         nick = self.lineEdit.text()
         if nick:
             if self.windows.game.playerExists(nick):
@@ -20,6 +37,11 @@ class Ui_formNickname(object):
             self.lineEdit.setText("")
 
     def setupUi(self, formNickname):
+        """
+        Setup the UI
+
+        :param formNickname: formNickname
+        """
         formNickname.setObjectName("QformNickname")
         formNickname.resize(401, 230)
         self.lineEdit = QtWidgets.QLineEdit(formNickname)
@@ -48,6 +70,11 @@ class Ui_formNickname(object):
         QtCore.QMetaObject.connectSlotsByName(formNickname)
 
     def retranslateUi(self, formNickname):
+        """
+        Retranslate the UI
+
+        :param formNickname: formNickname
+        """
         _translate = QtCore.QCoreApplication.translate
         formNickname.setWindowTitle(_translate("QformNickname", "Form"))
         self.lineEdit.setPlaceholderText(_translate("QformNickname", "Enter new or existing name"))

@@ -2,14 +2,28 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_Scores(object):
+    """
+    Window class that shows scores
+    """
     def __init__(self, windows=None):
+        """
+        Initialize object
+
+        :param windows: Windows (parent)
+        """
         self.windows = windows
 
     def bind(self):
+        """
+        Bind function to window
+        """
         self.btn_continue.clicked.connect(self.btn_continue_clicked)
         self.btn_quit.clicked.connect(self.btn_quit_clicked)
 
     def update(self):
+        """
+        Update everything
+        """
         self.label_header.setText(f"Scores - Game {self.windows.game.game_id}")
         #   Update Players and their Scores:
         self.list_scores.clear()
@@ -24,12 +38,23 @@ class Ui_Scores(object):
             item.setText(f"{i+1}. {arr[i][1]} ({arr[i][0]})")
 
     def btn_continue_clicked(self):
+        """Hide this window"""
         self.windows.show_mainWindow()
 
     def btn_quit_clicked(self):
+        """
+        Stop game and exit application
+
+        :return: exit(0)
+        """
         exit(0)
 
     def setupUi(self, Scores):
+        """
+        Setup the UI
+
+        :param Scores: Scores
+        """
         Scores.setObjectName("Scores")
         Scores.resize(743, 453)
         self.btn_quit = QtWidgets.QPushButton(Scores)
@@ -69,6 +94,11 @@ class Ui_Scores(object):
         QtCore.QMetaObject.connectSlotsByName(Scores)
 
     def retranslateUi(self, Scores):
+        """
+        Retranslate the UI
+
+        :param Scores: Scores
+        """
         _translate = QtCore.QCoreApplication.translate
         Scores.setWindowTitle(_translate("Scores", "Scores"))
         self.btn_quit.setText(_translate("Scores", "Quit Game"))

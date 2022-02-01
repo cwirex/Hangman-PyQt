@@ -5,7 +5,7 @@ game = Game()
 
 
 def main():
-    # Todo: Wczytaj hasła
+    """Runs the game in online or offline mode."""
     game.run()
 
 

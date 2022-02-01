@@ -2,7 +2,17 @@ import random
 
 
 class Round:
+    """
+    Class representing a single round. Holds information about current: word, player, time, lifes left...
+    """
     def __init__(self, game, category=None, word=None):
+        """
+        Create a new round
+
+        :param game: Game object
+        :param category: strting (optional)
+        :param word: string (optional)
+        """
         self.game = game
         self.id = 1
         self.category = category
@@ -16,6 +26,9 @@ class Round:
         self.timeleft = self.time
 
     def next(self):
+        """
+        Runs next round
+        """
         self.game.windows.mainWindow.timer_reset()
         if self.id < self.game.rounds_in_game:
             self.id += 1
@@ -29,6 +42,9 @@ class Round:
             self.game.game_over()
 
     def next_player(self):
+        """
+        Selects the next player (in a defined order)
+        """
         i = self.players_order.index(self.current_player)
         i += 1
         i %= len(self.players_order)
@@ -36,6 +52,10 @@ class Round:
         self.game.windows.mainWindow.update_current_player()
 
     def guess_letter(self, letter):
+        """
+        Check if letter is in current word and serve it.
+        :param letter: character
+        """
         self.used_letters += letter
         self.game.windows.mainWindow.set_used_letters(self.used_letters)
         if letter in self.word:
@@ -57,6 +77,10 @@ class Round:
             self.next_player()
 
     def guess_word(self, word):
+        """
+        Check if guessed word matches current word and serve it.
+        :param word: string
+        """
         # oblicz możliwe punkty za trafienie/pudło:
         points = len(self.word)
         for char in self.used_letters:
@@ -76,6 +100,9 @@ class Round:
             self.game.windows.mainWindow.timer_start()
 
     def timeout(self):
+        """
+        Decrease time left, if time left is zero, move to next player.
+        """
         if self.timeleft > 0:
             self.timeleft -= 1
         else:
@@ -84,6 +111,9 @@ class Round:
             self.wrong_guess()
 
     def wrong_guess(self):
+        """
+        Decrease current lifes and move to the next player, if lifes left is zero show answer.
+        """
         self.lifes -= 1
         self.game.windows.mainWindow.update_img()
         if self.lifes > 1:
@@ -92,4 +122,7 @@ class Round:
             self.game.windows.mainWindow.show_answer()
 
     def randomize_order(self):
+        """
+        Randomize the order of the players
+        """
         random.shuffle(self.players_order)
