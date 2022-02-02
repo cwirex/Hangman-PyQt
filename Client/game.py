@@ -8,6 +8,7 @@ from Client.round import Round
 from Server.player import Player
 from Server.score import Score
 from Server.word import Word
+from Server.crypto import Cryptography
 
 
 class Game:
@@ -27,6 +28,7 @@ class Game:
         self.categories = []
         self.online = False
         self.session = None
+        self.crypto = Cryptography('../Server/crypto.key')
         self.round = Round(self)
         self.rounds_in_game = 2
         self.windows = Windows(self)
@@ -169,7 +171,7 @@ class Game:
 
     def update_words(self):
         """
-        Update list of words
+        Update list of words. If game offline read from encrypted file.
         """
         if self.online:
             self.download_words()
@@ -180,13 +182,14 @@ class Game:
                 if w.category == cat:
                     self.words.append(w.word)
         else:
-            self.words = self.get_words_fromFile('words_basic.json')
+            self.crypto.decrypt('../Client/words.json')
+            self.words = self.get_words_fromFile('words.json')
+            self.crypto.encrypt('../Client/words.json')
 
-    def download_words(self):       # todo: Szyfruj plik JSON
+    def download_words(self):
         """
         Downloads words from database and saves to json file
         """
-
         query = self.session.query(Word).all()
         data = {}
         categories = []
@@ -195,8 +198,9 @@ class Game:
             data[c] = []
         for q in query:
             data[q.category].append(q.word)
-        with open('words.json', 'w') as file:
+        with open('../Client/words.json', 'w') as file:
             json.dump(data, file, indent=2)
+        self.crypto.encrypt('../Client/words.json')
 
 
     def get_words_fromFile(self, filename):
@@ -256,7 +260,7 @@ class Game:
             [temp.append(w.category) for w in words if w.category not in temp]  # uniq(categories)
             self.categories = temp
         else:
-            self.categories = self.get_categories_fromFile('words_basic.json')
+            self.categories = self.get_categories_fromFile('words_example.json')
         self.categories.sort()
         self.windows.mainWindow.update_categories()
 
