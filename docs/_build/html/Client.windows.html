@@ -1,0 +1,545 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Client.windows package &#8212; Hangman  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Server package" href="Server.html" />
+    <link rel="prev" title="Client package" href="Client.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="client-windows-package">
+<h1>Client.windows package<a class="headerlink" href="#client-windows-package" title="Permalink to this headline">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-Client.windows.allWindows">
+<span id="client-windows-allwindows-module"></span><h2>Client.windows.allWindows module<a class="headerlink" href="#module-Client.windows.allWindows" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="Client.windows.allWindows.Windows">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Client.windows.allWindows.</span></span><span class="sig-name descname"><span class="pre">Windows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.allWindows.Windows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class holds all windows that belongs to a Game</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.allWindows.Windows.show_formNickname">
+<span class="sig-name descname"><span class="pre">show_formNickname</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.allWindows.Windows.show_formNickname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display formNickname window and hide other widgets.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.allWindows.Windows.show_formPlayer">
+<span class="sig-name descname"><span class="pre">show_formPlayer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.allWindows.Windows.show_formPlayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display formPlayer window and hide other widgets.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.allWindows.Windows.show_formScores">
+<span class="sig-name descname"><span class="pre">show_formScores</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.allWindows.Windows.show_formScores" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display formScores window.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.allWindows.Windows.show_mainWindow">
+<span class="sig-name descname"><span class="pre">show_mainWindow</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.allWindows.Windows.show_mainWindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display the main window and hide all other windows.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-Client.windows.form_nickname">
+<span id="client-windows-form-nickname-module"></span><h2>Client.windows.form_nickname module<a class="headerlink" href="#module-Client.windows.form_nickname" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="Client.windows.form_nickname.Ui_formNickname">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Client.windows.form_nickname.</span></span><span class="sig-name descname"><span class="pre">Ui_formNickname</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">windows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.form_nickname.Ui_formNickname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Window class for entering a nickname</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.form_nickname.Ui_formNickname.bind">
+<span class="sig-name descname"><span class="pre">bind</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.form_nickname.Ui_formNickname.bind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bind function to window</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.form_nickname.Ui_formNickname.btn_clicked">
+<span class="sig-name descname"><span class="pre">btn_clicked</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.form_nickname.Ui_formNickname.btn_clicked" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read nickname and serve it. If nickname is in database fetch details of an account</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.form_nickname.Ui_formNickname.retranslateUi">
+<span class="sig-name descname"><span class="pre">retranslateUi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">formNickname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.form_nickname.Ui_formNickname.retranslateUi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retranslate the UI</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>formNickname</strong> – formNickname</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.form_nickname.Ui_formNickname.setupUi">
+<span class="sig-name descname"><span class="pre">setupUi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">formNickname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.form_nickname.Ui_formNickname.setupUi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup the UI</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>formNickname</strong> – formNickname</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-Client.windows.form_player">
+<span id="client-windows-form-player-module"></span><h2>Client.windows.form_player module<a class="headerlink" href="#module-Client.windows.form_player" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="Client.windows.form_player.Ui_formPlayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Client.windows.form_player.</span></span><span class="sig-name descname"><span class="pre">Ui_formPlayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">windows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nickname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.form_player.Ui_formPlayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Window class for entering a form of account details.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.form_player.Ui_formPlayer.bind">
+<span class="sig-name descname"><span class="pre">bind</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.form_player.Ui_formPlayer.bind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bind functions to window</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.form_player.Ui_formPlayer.changeAvatar">
+<span class="sig-name descname"><span class="pre">changeAvatar</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.form_player.Ui_formPlayer.changeAvatar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update current avatar image</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.form_player.Ui_formPlayer.clicked">
+<span class="sig-name descname"><span class="pre">clicked</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.form_player.Ui_formPlayer.clicked" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check form: if correct create player</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.form_player.Ui_formPlayer.retranslateUi">
+<span class="sig-name descname"><span class="pre">retranslateUi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">formPlayer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.form_player.Ui_formPlayer.retranslateUi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retranslate the UI</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>formPlayer</strong> – formPlayer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.form_player.Ui_formPlayer.set_player_name">
+<span class="sig-name descname"><span class="pre">set_player_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.form_player.Ui_formPlayer.set_player_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set form’s player name label</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> – string representing the player</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.form_player.Ui_formPlayer.setupUi">
+<span class="sig-name descname"><span class="pre">setupUi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">formPlayer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.form_player.Ui_formPlayer.setupUi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup the UI</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>formPlayer</strong> – formPlayer</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-Client.windows.mainWindow">
+<span id="client-windows-mainwindow-module"></span><h2>Client.windows.mainWindow module<a class="headerlink" href="#module-Client.windows.mainWindow" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="Client.windows.mainWindow.Ui_mainWindow">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Client.windows.mainWindow.</span></span><span class="sig-name descname"><span class="pre">Ui_mainWindow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">windows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.mainWindow.Ui_mainWindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Window class which allows to play the game</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.mainWindow.Ui_mainWindow.add_player">
+<span class="sig-name descname"><span class="pre">add_player</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.mainWindow.Ui_mainWindow.add_player" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call function to add a new player</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.mainWindow.Ui_mainWindow.bind">
+<span class="sig-name descname"><span class="pre">bind</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.mainWindow.Ui_mainWindow.bind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bind function to window</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.mainWindow.Ui_mainWindow.btn_GuessLetter_clicked">
+<span class="sig-name descname"><span class="pre">btn_GuessLetter_clicked</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.mainWindow.Ui_mainWindow.btn_GuessLetter_clicked" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if letter is correct and call function to check if is in word</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.mainWindow.Ui_mainWindow.btn_GuessWord_clicked">
+<span class="sig-name descname"><span class="pre">btn_GuessWord_clicked</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.mainWindow.Ui_mainWindow.btn_GuessWord_clicked" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call function to check if word is correct</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.mainWindow.Ui_mainWindow.create_lambda">
+<span class="sig-name descname"><span class="pre">create_lambda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.mainWindow.Ui_mainWindow.create_lambda" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create function to bind category label with action</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>text</strong> – string representing category</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>function lambda</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.mainWindow.Ui_mainWindow.remove_all">
+<span class="sig-name descname"><span class="pre">remove_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.mainWindow.Ui_mainWindow.remove_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call function to remove all players</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.mainWindow.Ui_mainWindow.remove_player">
+<span class="sig-name descname"><span class="pre">remove_player</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.mainWindow.Ui_mainWindow.remove_player" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.mainWindow.Ui_mainWindow.retranslateUi">
+<span class="sig-name descname"><span class="pre">retranslateUi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mainWindow</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.mainWindow.Ui_mainWindow.retranslateUi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retranslate the UI</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>mainWindow</strong> – mainWindow</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.mainWindow.Ui_mainWindow.set_guessing_player">
+<span class="sig-name descname"><span class="pre">set_guessing_player</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nick</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.mainWindow.Ui_mainWindow.set_guessing_player" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update window to show current player (form given nick)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>nick</strong> – string representing the player</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.mainWindow.Ui_mainWindow.set_used_letters">
+<span class="sig-name descname"><span class="pre">set_used_letters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.mainWindow.Ui_mainWindow.set_used_letters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update used letters and display them</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>string</strong> – string representing the letters used</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.mainWindow.Ui_mainWindow.setupUi">
+<span class="sig-name descname"><span class="pre">setupUi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mainWindow</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.mainWindow.Ui_mainWindow.setupUi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup the UI</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>mainWindow</strong> – mainWindow</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.mainWindow.Ui_mainWindow.show_answer">
+<span class="sig-name descname"><span class="pre">show_answer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.mainWindow.Ui_mainWindow.show_answer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display answer and reset timer</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.mainWindow.Ui_mainWindow.show_answer_update">
+<span class="sig-name descname"><span class="pre">show_answer_update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.mainWindow.Ui_mainWindow.show_answer_update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update bar timer while showing answer</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.mainWindow.Ui_mainWindow.start_game">
+<span class="sig-name descname"><span class="pre">start_game</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.mainWindow.Ui_mainWindow.start_game" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start game (when button pressed)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.mainWindow.Ui_mainWindow.timer_reset">
+<span class="sig-name descname"><span class="pre">timer_reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.mainWindow.Ui_mainWindow.timer_reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stops timer and sets its max value</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.mainWindow.Ui_mainWindow.timer_restart">
+<span class="sig-name descname"><span class="pre">timer_restart</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.mainWindow.Ui_mainWindow.timer_restart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts the timer from max value</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.mainWindow.Ui_mainWindow.timer_start">
+<span class="sig-name descname"><span class="pre">timer_start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.mainWindow.Ui_mainWindow.timer_start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start timer</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.mainWindow.Ui_mainWindow.timer_stop">
+<span class="sig-name descname"><span class="pre">timer_stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.mainWindow.Ui_mainWindow.timer_stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop timer</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.mainWindow.Ui_mainWindow.timer_timeout">
+<span class="sig-name descname"><span class="pre">timer_timeout</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.mainWindow.Ui_mainWindow.timer_timeout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update bar timer, eventually call function round.timeout()</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.mainWindow.Ui_mainWindow.trim_letter">
+<span class="sig-name descname"><span class="pre">trim_letter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.mainWindow.Ui_mainWindow.trim_letter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update entered letter to be at max length 1</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.mainWindow.Ui_mainWindow.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.mainWindow.Ui_mainWindow.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update everything</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.mainWindow.Ui_mainWindow.update_categories">
+<span class="sig-name descname"><span class="pre">update_categories</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.mainWindow.Ui_mainWindow.update_categories" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update current game categories display</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.mainWindow.Ui_mainWindow.update_category">
+<span class="sig-name descname"><span class="pre">update_category</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.mainWindow.Ui_mainWindow.update_category" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update current category display</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.mainWindow.Ui_mainWindow.update_current_player">
+<span class="sig-name descname"><span class="pre">update_current_player</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.mainWindow.Ui_mainWindow.update_current_player" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update current player name display</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.mainWindow.Ui_mainWindow.update_game_id">
+<span class="sig-name descname"><span class="pre">update_game_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.mainWindow.Ui_mainWindow.update_game_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update current game id display</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.mainWindow.Ui_mainWindow.update_img">
+<span class="sig-name descname"><span class="pre">update_img</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.mainWindow.Ui_mainWindow.update_img" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update current image display</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.mainWindow.Ui_mainWindow.update_players">
+<span class="sig-name descname"><span class="pre">update_players</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.mainWindow.Ui_mainWindow.update_players" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update table with players and their scores.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.mainWindow.Ui_mainWindow.update_round">
+<span class="sig-name descname"><span class="pre">update_round</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.mainWindow.Ui_mainWindow.update_round" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update current round number display</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.mainWindow.Ui_mainWindow.update_time">
+<span class="sig-name descname"><span class="pre">update_time</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.mainWindow.Ui_mainWindow.update_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update bar time display</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.mainWindow.Ui_mainWindow.update_word">
+<span class="sig-name descname"><span class="pre">update_word</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.mainWindow.Ui_mainWindow.update_word" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update current word display</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-Client.windows.scores">
+<span id="client-windows-scores-module"></span><h2>Client.windows.scores module<a class="headerlink" href="#module-Client.windows.scores" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="Client.windows.scores.Ui_Scores">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Client.windows.scores.</span></span><span class="sig-name descname"><span class="pre">Ui_Scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">windows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.scores.Ui_Scores" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Window class that shows scores</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.scores.Ui_Scores.bind">
+<span class="sig-name descname"><span class="pre">bind</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.scores.Ui_Scores.bind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bind function to window</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.scores.Ui_Scores.btn_continue_clicked">
+<span class="sig-name descname"><span class="pre">btn_continue_clicked</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.scores.Ui_Scores.btn_continue_clicked" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hide this window</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.scores.Ui_Scores.btn_quit_clicked">
+<span class="sig-name descname"><span class="pre">btn_quit_clicked</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.scores.Ui_Scores.btn_quit_clicked" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop game and exit application</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>exit(0)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.scores.Ui_Scores.retranslateUi">
+<span class="sig-name descname"><span class="pre">retranslateUi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Scores</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.scores.Ui_Scores.retranslateUi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retranslate the UI</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Scores</strong> – Scores</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.scores.Ui_Scores.setupUi">
+<span class="sig-name descname"><span class="pre">setupUi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Scores</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.scores.Ui_Scores.setupUi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup the UI</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Scores</strong> – Scores</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Client.windows.scores.Ui_Scores.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Client.windows.scores.Ui_Scores.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update everything</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-Client.windows">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-Client.windows" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Hangman</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Hangman</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="Client.html">Client package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Server.html">Server package</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">Hangman</a><ul>
+  <li><a href="Client.html">Client package</a><ul>
+      <li>Previous: <a href="Client.html" title="previous chapter">Client package</a></li>
+      <li>Next: <a href="Server.html" title="next chapter">Server package</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Mateusz Ocwieja.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/Client.windows.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,259 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Server package &#8212; Hangman  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Client.windows package" href="Client.windows.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="server-package">
+<h1>Server package<a class="headerlink" href="#server-package" title="Permalink to this headline">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-Server.crypto">
+<span id="server-crypto-module"></span><h2>Server.crypto module<a class="headerlink" href="#module-Server.crypto" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="Server.crypto.Cryptography">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Server.crypto.</span></span><span class="sig-name descname"><span class="pre">Cryptography</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'crypto.key'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Server.crypto.Cryptography" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class used in cryptography operations</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Server.crypto.Cryptography.decrypt">
+<span class="sig-name descname"><span class="pre">decrypt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Server.crypto.Cryptography.decrypt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decrypt any given file with default key</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> – string - name of file to decrypt</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>decrypted file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Server.crypto.Cryptography.encrypt">
+<span class="sig-name descname"><span class="pre">encrypt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Server.crypto.Cryptography.encrypt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encrypt any given file with default key</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> – string - name of file to encrypt</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>encrypted file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Server.crypto.Cryptography.replace_key">
+<span class="sig-name descname"><span class="pre">replace_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'crypto.key'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Server.crypto.Cryptography.replace_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate and replace default key</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> – string - name of file to save the key</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>File with new crypto key</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-Server.dbase">
+<span id="server-dbase-module"></span><h2>Server.dbase module<a class="headerlink" href="#module-Server.dbase" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-Server.player">
+<span id="server-player-module"></span><h2>Server.player module<a class="headerlink" href="#module-Server.player" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="Server.player.Player">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Server.player.</span></span><span class="sig-name descname"><span class="pre">Player</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nickname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'?'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avatar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gender</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Server.player.Player" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.orm.decl_api.Base</span></code></p>
+<p>Class representing a player</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Server.player.Player.avatar">
+<span class="sig-name descname"><span class="pre">avatar</span></span><a class="headerlink" href="#Server.player.Player.avatar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Server.player.Player.email">
+<span class="sig-name descname"><span class="pre">email</span></span><a class="headerlink" href="#Server.player.Player.email" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Server.player.Player.gender">
+<span class="sig-name descname"><span class="pre">gender</span></span><a class="headerlink" href="#Server.player.Player.gender" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Server.player.Player.nickname">
+<span class="sig-name descname"><span class="pre">nickname</span></span><a class="headerlink" href="#Server.player.Player.nickname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-Server.score">
+<span id="server-score-module"></span><h2>Server.score module<a class="headerlink" href="#module-Server.score" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="Server.score.Score">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Server.score.</span></span><span class="sig-name descname"><span class="pre">Score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nickname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Server.score.Score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.orm.decl_api.Base</span></code></p>
+<p>Class representing the score of a player in a single game</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Server.score.Score.game_id">
+<span class="sig-name descname"><span class="pre">game_id</span></span><a class="headerlink" href="#Server.score.Score.game_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Server.score.Score.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#Server.score.Score.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Server.score.Score.nickname">
+<span class="sig-name descname"><span class="pre">nickname</span></span><a class="headerlink" href="#Server.score.Score.nickname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Server.score.Score.points">
+<span class="sig-name descname"><span class="pre">points</span></span><a class="headerlink" href="#Server.score.Score.points" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-Server.word">
+<span id="server-word-module"></span><h2>Server.word module<a class="headerlink" href="#module-Server.word" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="Server.word.Word">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Server.word.</span></span><span class="sig-name descname"><span class="pre">Word</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">word</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Server.word.Word" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.orm.decl_api.Base</span></code></p>
+<p>Class representing a single word</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Server.word.Word.category">
+<span class="sig-name descname"><span class="pre">category</span></span><a class="headerlink" href="#Server.word.Word.category" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Server.word.Word.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#Server.word.Word.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Server.word.Word.word">
+<span class="sig-name descname"><span class="pre">word</span></span><a class="headerlink" href="#Server.word.Word.word" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-Server">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-Server" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Hangman</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Hangman</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Client.html">Client package</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Server package</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">Hangman</a><ul>
+      <li>Previous: <a href="Client.windows.html" title="previous chapter">Client.windows package</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Mateusz Ocwieja.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/Server.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
