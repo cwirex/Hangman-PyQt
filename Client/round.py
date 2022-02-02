@@ -22,7 +22,7 @@ class Round:
             self.current_player = self.players_order[0]
         self.used_letters = ""
         self.lifes = 10  # current lifes; max=10
-        self.time = 5  # in seconds
+        self.time = 2 + self.game.rounds_in_game  # in seconds
         self.timeleft = self.time
 
     def next(self):
@@ -39,6 +39,12 @@ class Round:
             self.game.windows.mainWindow.update()
             self.game.windows.mainWindow.timer_restart()
         else:
+            self.game.game_over()
+
+    def update_speed(self):
+        self.time = 2 + self.game.rounds_in_game
+        self.game.windows.mainWindow.update_round()
+        if self.id > self.game.rounds_in_game:
             self.game.game_over()
 
     def next_player(self):

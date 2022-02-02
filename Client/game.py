@@ -29,8 +29,8 @@ class Game:
         self.online = False
         self.session = None
         self.crypto = Cryptography('../Server/crypto.key')
+        self.rounds_in_game = 5
         self.round = Round(self)
-        self.rounds_in_game = 2
         self.windows = Windows(self)
 
     def run(self):
@@ -202,7 +202,6 @@ class Game:
             json.dump(data, file, indent=2)
         self.crypto.encrypt('../Client/words.json')
 
-
     def get_words_fromFile(self, filename):
         """
         Opens file with given name and returns words
@@ -272,6 +271,29 @@ class Game:
         """
         scores = self.session.query(Score).all()
         return 1 + max([s.game_id for s in scores])
+
+    def speed_slow(self):
+        self.rounds_in_game = 10
+        self.round.update_speed()
+
+    def speed_normal(self):
+        self.rounds_in_game = 5
+        self.round.update_speed()
+
+    def speed_fast(self):
+        self.rounds_in_game = 2
+        self.round.update_speed()
+
+    def newGame(self):
+        self.windows.mainWindow.timer_reset()
+        for s in self.scores:
+            self.scores[s] = 0
+        cat = self.round.category
+        word = self.get_random_word()
+        self.round = Round(self, cat, word)
+        self.windows.mainWindow.update()
+
+
 
     def get_random_word(self):
         """
