@@ -231,7 +231,10 @@ class Ui_mainWindow(object):
             self.formLayout.removeRow(1)
         self.e_players = []
         self.e_scores = []
-        players = self.windows.game.players
+        try:
+            players = self.windows.game.round.players_order
+        except:
+            players = self.windows.game.players
         for i in range(len(players)):
             self.e_players.append(QtWidgets.QLabel(self.formLayoutWidget))
             font = QtGui.QFont()

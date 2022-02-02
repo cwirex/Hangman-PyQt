@@ -46,7 +46,6 @@ class Game:
     def start_game(self):
         """
         Prepare game to start: chooses category, word and start new round.
-
         """
         cat = self.round.category
         word = self.get_random_word()
@@ -273,18 +272,22 @@ class Game:
         return 1 + max([s.game_id for s in scores])
 
     def speed_slow(self):
+        """Change game speed to slow"""
         self.rounds_in_game = 10
         self.round.update_speed()
 
     def speed_normal(self):
+        """Change game speed to normal"""
         self.rounds_in_game = 5
         self.round.update_speed()
 
     def speed_fast(self):
+        """Change game speed to fast"""
         self.rounds_in_game = 2
         self.round.update_speed()
 
     def newGame(self):
+        """Reset game"""
         self.windows.mainWindow.timer_reset()
         for s in self.scores:
             self.scores[s] = 0
@@ -292,8 +295,6 @@ class Game:
         word = self.get_random_word()
         self.round = Round(self, cat, word)
         self.windows.mainWindow.update()
-
-
 
     def get_random_word(self):
         """
@@ -305,3 +306,4 @@ class Game:
         if self.round.word in words:
             words.remove(self.round.word)
         return random.choice(words)
+

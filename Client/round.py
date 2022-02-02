@@ -19,6 +19,7 @@ class Round:
         self.word = word
         if self.game.players:
             self.players_order = self.game.players.copy()
+            self.randomize_order()
             self.current_player = self.players_order[0]
         self.used_letters = ""
         self.lifes = 10  # current lifes; max=10
@@ -42,6 +43,7 @@ class Round:
             self.game.game_over()
 
     def update_speed(self):
+        """Update speed of the game, if rounds over limit end game"""
         self.time = 2 + self.game.rounds_in_game
         self.game.windows.mainWindow.update_round()
         if self.id > self.game.rounds_in_game:
