@@ -1,4 +1,4 @@
 /ui/
 /venv/
-Client/words.json
+./Client/words.json
 .idea
