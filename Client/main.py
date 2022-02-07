@@ -1,8 +1,6 @@
 from Client.game import Game
 from Server.dbase import Base, Session, engine
 
-game = Game()
-
 
 def main():
     """Runs the game in online or offline mode."""
@@ -10,6 +8,7 @@ def main():
 
 
 if __name__ == '__main__':
+    game = Game()
     try:
         Base.metadata.create_all(engine)
         session = Session()
