@@ -1,4 +1,7 @@
 # Gra Wisielec
+![Screenshot from the game](https://github.com/cwirex/Hangman/blob/master/hangman_game.png?raw=true)
+<p align="center">Screenshot from the game</p>
+
 ### Funkcje gry
 1. Baza danych graczy
    - Rejestracja nowych graczy 
